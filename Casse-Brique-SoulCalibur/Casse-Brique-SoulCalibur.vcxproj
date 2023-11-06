@@ -131,6 +131,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Casse-Brique-SoulCalibur.cpp" />
+    <ClCompile Include="GameObjetct.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameObjetct.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
