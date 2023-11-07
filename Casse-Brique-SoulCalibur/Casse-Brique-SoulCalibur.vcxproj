@@ -130,11 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Casse-Brique-SoulCalibur.cpp" />
-    <ClCompile Include="GameObjetct.cpp" />
+    <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObjetct.h" />
+    <ClInclude Include="Brick.h" />
+    <ClInclude Include="Cannon.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Ball.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

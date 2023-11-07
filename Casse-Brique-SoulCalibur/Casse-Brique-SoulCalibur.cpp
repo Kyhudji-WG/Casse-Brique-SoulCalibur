@@ -3,36 +3,47 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "GameObject.h"
+#include "Ball.h"
+#include "Brick.h"
+
 
 int main(int argc, char** argv)
 {
-    //Création d'une fenêtre (640 - 480 base)
+    //Création d'une fenêtre 
     sf::RenderWindow oWindow(sf::VideoMode(1460, 880), "SFML");
+
+    //creation d'une balle de jeu
+    GameObject oBall;
+
 
     //Création d'un cercle de radius (100 base)
     sf::CircleShape oCircle(10.f);
-    //A la position 0, 0
+    //la position 
     oCircle.setPosition(0.f, 0.f);
-    //Et de couleur verte
+    //Et la couleur
     oCircle.setFillColor(sf::Color::Magenta);
 
 
 
-    //Création d'un rectangle de taille (50, 50 base)
+    //Création d'un rectangle 
     sf::RectangleShape oRectangle(sf::Vector2f(100.f, 20.f));
-    //A la position 100, 100
-    oCircle.setPosition(100.f, 100.f);
-    //Et de couleur rouge
+    //la position 
+    oRectangle.setPosition(100.f, 100.f);
+    //Et la couleur 
     oRectangle.setFillColor(sf::Color::Red);
 
-    // Création d'un canon de taille (50, 50 base)
-    // sf::RectangleShape aRectangle(sf::Vector2f(20.f, 100.f));
-    // A la position 100, 100
-    // aRectangle.setPosition(100.f, 100.f);
-    // couleur
-    // aRectangle.setFillColor(sf::Color::Red);
+    // Création d'un canon
+    //sf::RectangleShape aRectangle(sf::Vector2f(20.f, 100.f));
+    //la position
+    //aRectangle.setPosition(100.f, 100.f);
+    // et la couleur
+    //aRectangle.setFillColor(sf::Color::Red);
 
+    
 
+    sf::Clock oClock;
+    float deltaTime = 0;
     //GameLoop
     while (oWindow.isOpen())
     {
@@ -46,13 +57,19 @@ int main(int argc, char** argv)
 
         //UPDATE
 
+        oBall.move(deltaTime);
+
         //DRAW
         oWindow.clear();
 
         oWindow.draw(oCircle);
+        //oWindow.draw(oBall);
         oWindow.draw(oRectangle);
+        //oWindow.draw(aRectangle);
 
         oWindow.display();
+
+        deltaTime = oClock.restart().asSeconds ();
     }
 
     return 0;
