@@ -9,6 +9,9 @@ private:
 	float weight;
 	float height;
 
+	float xdirection;
+	float ydirection;
+
 public:
 
 	GameObject(); //constructeur
