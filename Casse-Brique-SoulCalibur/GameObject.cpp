@@ -1,34 +1,22 @@
 #include "GameObject.h"
 #include <SFML/Graphics.hpp>
 
-/*
-GameObject::GameObject(float x, float y, float weight, float height) //constructeur
-{
-	xPosition = x;
-	yPosition = y;
-	weight = weight;
-	height = height;
 
-
-	// Initialise la position et la taille de l'objet
-	// par défaut, vous pouvez également ajouter d'autres paramètres, comme la couleur, la texture, etc.
-	shape.setPosition(x, y);
-
-}
-*/
 GameObject::GameObject(float x, float y, float radius)
 {
-	/*
-	xPosition = x;
-	yPosition = y;
-	weight = weight;
-	height = height;
-	radius = radius;
-	*/
+	this->xPosition = x;
+	this->yPosition = y;
+	//weight = weight;
+	//height = height;
+	this->radius = radius;
+	xDirection = -1;
+	yDirection = -1;
+	
 
-	shape.setPosition(sf::Vector2f(x, y));
+	shape.setPosition(sf::Vector2f(xPosition, yPosition));
 	shape.setRadius(radius);
-	shape.setFillColor(sf::Color::Red);
+	shape.setFillColor(sf::Color::Green);
+	
 }
 
 GameObject::~GameObject()//destructeur
@@ -36,18 +24,15 @@ GameObject::~GameObject()//destructeur
 	
 }
 
-void GameObject::draw(sf::RenderWindow& window) {
+void GameObject::draw(sf::RenderWindow& window) 
+{
 	window.draw(shape);
 }
 
-/*
-void GameObject::setPosition(float x, float y) {
-	shape.setPosition(x, y);
+void GameObject::move(float time)
+{
+	xPosition += xDirection * time * 100.f;
+	yPosition += yDirection * time * 100.f;
+
+	shape.setPosition(sf::Vector2f(xPosition, yPosition));
 }
-
-void GameObject::setRadius(float radius) {
-	shape.setRadius(radius);
-}
-
-
-*/

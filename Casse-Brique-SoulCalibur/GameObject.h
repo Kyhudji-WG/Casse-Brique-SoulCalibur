@@ -5,13 +5,14 @@
 class GameObject
 {
 private:
-	/*
+
 	float xPosition;
 	float yPosition;
 	float weight;
 	float height;
 	float radius;
-	*/
+	int xDirection;
+	int yDirection;
 
 	sf::CircleShape shape; 
 
@@ -23,7 +24,5 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
-	//void setPosition(float x, float y);
-
-	//void setRadius(float radius);
+	void move(float time);
 };

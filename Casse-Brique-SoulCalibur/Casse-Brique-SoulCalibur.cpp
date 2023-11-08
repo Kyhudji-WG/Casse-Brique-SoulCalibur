@@ -11,23 +11,11 @@
 
 int main(int argc, char** argv)
 {
-    
     //création de la fenetre
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
 
-
     //creation d'une balle de jeu
-    GameObject oBall(100.f, 100.f, 30.f);
-
-
-    //Création d'un cercle de radius (100 base)
-    sf::CircleShape oCircle(10.f);
-    //la position 
-    oCircle.setPosition(0.f, 0.f);
-    //Et la couleur
-    oCircle.setFillColor(sf::Color::Magenta);
-
-
+    GameObject oBall(200.f, 200.f, 10.f);
 
     //Création d'un rectangle 
     sf::RectangleShape oRectangle(sf::Vector2f(100.f, 20.f));
@@ -35,6 +23,7 @@ int main(int argc, char** argv)
     oRectangle.setPosition(100.f, 100.f);
     //Et la couleur 
     oRectangle.setFillColor(sf::Color::Red);
+
 
     // Création d'un canon
     //sf::RectangleShape aRectangle(sf::Vector2f(20.f, 100.f));
@@ -47,9 +36,8 @@ int main(int argc, char** argv)
 
     sf::Clock oClock;
     float deltaTime = 0;
-    bool isOpen = true;
     //GameLoop
-    while (isOpen)
+    while (window.isOpen())
     {
         //EVENT
         sf::Event oEvent;
@@ -61,14 +49,17 @@ int main(int argc, char** argv)
 
         //UPDATE
 
-       
+        oBall.move(deltaTime);
+
+        
+        
 
         //DRAW
         window.clear();
 
-        window.draw(oCircle);
         oBall.draw(window);
-         
+        
+        
         window.draw(oRectangle);
         //oWindow.draw(aRectangle);
 
