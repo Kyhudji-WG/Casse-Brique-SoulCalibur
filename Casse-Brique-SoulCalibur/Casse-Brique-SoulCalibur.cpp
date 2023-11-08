@@ -4,17 +4,20 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
-#include "Ball.h"
-#include "Brick.h"
+//#include "Ball.h"
+//#include "Brick.h"
+#include "Window.h"
 
 
 int main(int argc, char** argv)
 {
-    //Création d'une fenêtre 
-    sf::RenderWindow oWindow(sf::VideoMode(1460, 880), "SFML");
+    
+    //création de la fenetre
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
+
 
     //creation d'une balle de jeu
-    GameObject oBall;
+    GameObject oBall(100.f, 100.f, 30.f);
 
 
     //Création d'un cercle de radius (100 base)
@@ -44,30 +47,32 @@ int main(int argc, char** argv)
 
     sf::Clock oClock;
     float deltaTime = 0;
+    bool isOpen = true;
     //GameLoop
-    while (oWindow.isOpen())
+    while (isOpen)
     {
         //EVENT
         sf::Event oEvent;
-        while (oWindow.pollEvent(oEvent))
+        while (window.pollEvent(oEvent))
         {
             if (oEvent.type == sf::Event::Closed)
-                oWindow.close();
+                window.close();
         }
 
         //UPDATE
 
-        oBall.move(deltaTime);
+       
 
         //DRAW
-        oWindow.clear();
+        window.clear();
 
-        oWindow.draw(oCircle);
-        //oWindow.draw(oBall);
-        oWindow.draw(oRectangle);
+        window.draw(oCircle);
+        oBall.draw(window);
+         
+        window.draw(oRectangle);
         //oWindow.draw(aRectangle);
 
-        oWindow.display();
+        window.display();
 
         deltaTime = oClock.restart().asSeconds ();
     }
