@@ -15,7 +15,9 @@ int main(int argc, char** argv)
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
 
     //creation d'une balle de jeu
-    GameObject oBall(200.f, 200.f, 10.f);
+    GameObject oBall(150.f, 200.f, 10.f);
+
+    GameObject oBall2(300.f, 200.f, 10.f);
 
     //Création d'un rectangle 
     sf::RectangleShape oRectangle(sf::Vector2f(100.f, 20.f));
@@ -32,7 +34,7 @@ int main(int argc, char** argv)
     // et la couleur
     //aRectangle.setFillColor(sf::Color::Red);
 
-    
+
 
     sf::Clock oClock;
     float deltaTime = 0;
@@ -48,16 +50,29 @@ int main(int argc, char** argv)
         }
 
         //UPDATE
+        oRectangle.getGlobalBounds();
 
         oBall.move(deltaTime);
 
-        
-        
 
+        if (oBall.isColliderect(oRectangle.getGlobalBounds()))
+        {
+            std::cout << "colision" << std::endl;
+            oBall.setRotation(45);
+        }
+
+        if (oBall.isOutScreen(800))
+        {
+            std::cout << "sortie d'écran" << std::endl;
+            
+        }
+
+        
         //DRAW
         window.clear();
 
         oBall.draw(window);
+        oBall2.draw(window);
         
         
         window.draw(oRectangle);
