@@ -7,6 +7,7 @@
 //#include "Ball.h"
 //#include "Brick.h"
 #include "Window.h"
+#include <SFML/System.hpp>
 
 
 int main(int argc, char** argv)
@@ -24,6 +25,12 @@ int main(int argc, char** argv)
     //Et la couleur 
     oRectangle.setFillColor(sf::Color::Red);
 
+    //Création d'un rectangle 
+    sf::RectangleShape oRectangle1(sf::Vector2f(100.f, 20.f));
+    //la position 
+    oRectangle1.setPosition(350.f, 580.f);
+    //Et la couleur 
+    oRectangle1.setFillColor(sf::Color::Blue);
 
     // Création d'un canon
     //sf::RectangleShape aRectangle(sf::Vector2f(20.f, 100.f));
@@ -45,11 +52,25 @@ int main(int argc, char** argv)
         {
             if (oEvent.type == sf::Event::Closed)
                 window.close();
+
+            else if (oEvent.type == sf::Keyboard::)
+            {
+
+            }
         }
 
         //UPDATE
 
         oBall.move(deltaTime);
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+            oRectangle1.move(0.f, -10.f);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+            oRectangle1.move(-10.f, 0.f);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            oRectangle1.move(0.f, 10.f);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            oRectangle1.move(10.f, 0.f);
 
 
 
@@ -61,6 +82,7 @@ int main(int argc, char** argv)
 
 
         window.draw(oRectangle);
+        window.draw(oRectangle1);
         //oWindow.draw(aRectangle);
 
         window.display();

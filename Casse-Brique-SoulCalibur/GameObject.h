@@ -14,6 +14,7 @@ private:
 	int xDirection;
 	int yDirection;
 
+
 	sf::CircleShape shape;
 
 public:
