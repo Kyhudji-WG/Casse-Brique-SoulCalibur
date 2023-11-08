@@ -1,23 +1,38 @@
 #include "GameObject.h"
+#include <SFML/Graphics.hpp>
 
-GameObject::GameObject() {
-    // Initialiser les variables membres si nécessaire
+
+GameObject::GameObject(float x, float y, float radius)
+{
+	this->xPosition = x;
+	this->yPosition = y;
+	//weight = weight;
+	//height = height;
+	this->radius = radius;
+	xDirection = -1;
+	yDirection = -1;
+
+
+	shape.setPosition(sf::Vector2f(xPosition, yPosition));
+	shape.setRadius(radius);
+	shape.setFillColor(sf::Color::Green);
+
 }
 
-void GameObject::setPosition(float x, float y) {
-    m_shape.setPosition(x, y);
+GameObject::~GameObject()//destructeur
+{
+
 }
 
-void GameObject::setShape(const sf::Shape& shape) {
-    m_shape = shape;
+void GameObject::draw(sf::RenderWindow& window)
+{
+	window.draw(shape);
 }
 
-void GameObject::setColor(const sf::Color& color) {
-    m_shape.setFillColor(color);
-}
+void GameObject::move(float time)
+{
+	xPosition += xDirection * time * 100.f;
+	yPosition += yDirection * time * 100.f;
 
-void GameObject::draw(sf::RenderWindow& oWindow) {
-    oWindow.draw(m_shape);
+	shape.setPosition(sf::Vector2f(xPosition, yPosition));
 }
-
-// Implémentez d'autres fonctions membres pour gérer les mouvements, les collisions, etc.
