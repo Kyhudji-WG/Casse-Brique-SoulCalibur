@@ -1,62 +1,71 @@
 // Casse-Brique-SoulCalibur.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//#pragma once
+//
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
-#include "GameObject.cpp"
+//#include "Ball.h"
+//#include "Brick.h"
+#include "Window.h"
+
 
 int main(int argc, char** argv)
 {
+    //création de la fenetre
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
 
-    //Création d'une fenêtre (640 - 480 base)
-    sf::RenderWindow oWindow(sf::VideoMode(1460, 880), "SFML");
+    //creation d'une balle de jeu
+    GameObject oBall(200.f, 200.f, 10.f);
 
-    //Création d'un cercle de radius (100 base)
-    sf::CircleShape oCircle(10.f);
-    //A la position 0, 0
-    oCircle.setPosition(0.f, 0.f);
-    //Et de couleur verte
-    oCircle.setFillColor(sf::Color::Magenta);
-
-
-
-    //Création d'un rectangle de taille (50, 50 base)
+    //Création d'un rectangle 
     sf::RectangleShape oRectangle(sf::Vector2f(100.f, 20.f));
-    //A la position 100, 100
-    oCircle.setPosition(100.f, 100.f);
-    //Et de couleur rouge
+    //la position 
+    oRectangle.setPosition(100.f, 100.f);
+    //Et la couleur 
     oRectangle.setFillColor(sf::Color::Red);
 
 
-    // Création d'un canon de taille (50, 50 base)
-    // sf::RectangleShape aRectangle(sf::Vector2f(20.f, 100.f));
-    // A la position 100, 100
-    // aRectangle.setPosition(100.f, 100.f);
-    // couleur
-    // aRectangle.setFillColor(sf::Color::Red);
+    // Création d'un canon
+    //sf::RectangleShape aRectangle(sf::Vector2f(20.f, 100.f));
+    //la position
+    //aRectangle.setPosition(100.f, 100.f);
+    // et la couleur
+    //aRectangle.setFillColor(sf::Color::Red);
 
 
+
+    sf::Clock oClock;
+    float deltaTime = 0;
     //GameLoop
-    while (oWindow.isOpen())
+    while (window.isOpen())
     {
         //EVENT
         sf::Event oEvent;
-        while (oWindow.pollEvent(oEvent))
+        while (window.pollEvent(oEvent))
         {
             if (oEvent.type == sf::Event::Closed)
-                oWindow.close();
+                window.close();
         }
 
         //UPDATE
 
+        oBall.move(deltaTime);
+
+
+
+
         //DRAW
-        oWindow.clear();
+        window.clear();
 
-        oWindow.draw(oCircle);
-        oWindow.draw(oRectangle);
+        oBall.draw(window);
 
-        oWindow.display();
+
+        window.draw(oRectangle);
+        //oWindow.draw(aRectangle);
+
+        window.display();
+
+        deltaTime = oClock.restart().asSeconds();
     }
 
     return 0;
