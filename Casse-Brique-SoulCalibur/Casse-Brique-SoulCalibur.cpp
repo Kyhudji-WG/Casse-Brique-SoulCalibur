@@ -1,11 +1,14 @@
 // Casse-Brique-SoulCalibur.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
-//
+//#pragma once
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "GameObject.h"
+#include "GameObject.cpp"
 
 int main(int argc, char** argv)
 {
+
     //Création d'une fenêtre (640 - 480 base)
     sf::RenderWindow oWindow(sf::VideoMode(1460, 880), "SFML");
 
@@ -24,6 +27,7 @@ int main(int argc, char** argv)
     oCircle.setPosition(100.f, 100.f);
     //Et de couleur rouge
     oRectangle.setFillColor(sf::Color::Red);
+
 
     // Création d'un canon de taille (50, 50 base)
     // sf::RectangleShape aRectangle(sf::Vector2f(20.f, 100.f));
