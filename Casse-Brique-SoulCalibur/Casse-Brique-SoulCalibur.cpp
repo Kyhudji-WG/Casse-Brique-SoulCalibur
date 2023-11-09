@@ -53,25 +53,29 @@ int main(int argc, char** argv)
             if (oEvent.type == sf::Event::Closed)
                 window.close();
 
-            else if (oEvent.type == sf::Keyboard::)
+            /*else if (oEvent.type == sf::Keyboard::)
             {
 
-            }
+            }*/
         }
 
         //UPDATE
 
         oBall.move(deltaTime);
 
+        /* 
+        
+        
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-            oRectangle1.move(0.f, -10.f);
+            oRectangle1.move(0.f, -1.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-            oRectangle1.move(-10.f, 0.f);
+            oRectangle1.move(-1.f, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-            oRectangle1.move(0.f, 10.f);
+            oRectangle1.move(0.f, 1.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-            oRectangle1.move(10.f, 0.f);
+            oRectangle1.move(1.f, 0.f);
 
+        */
 
 
 
