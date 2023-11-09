@@ -26,4 +26,6 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	void move(float time);
+
+	void setRotation(float angle);
 };

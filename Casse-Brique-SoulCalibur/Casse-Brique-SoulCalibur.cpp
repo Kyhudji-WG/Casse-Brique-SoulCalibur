@@ -75,6 +75,23 @@ int main(int argc, char** argv)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             oRectangle1.move(1.f, 0.f);
 
+            */
+
+
+        /*
+           sf::Vector2i globalPosition = sf::Mouse::getPosition();//je recupere la position du sprite
+
+            oRectangle1.setOrigin(10.f, 30.f);
+            float angle = atan2(globalPosition.y - oRectangle1.getPosition().y, globalPosition.x - oRectangle1.getPosition().x);//calcule de l'angle
+            angle = angle * 180 / 3.14159265358979323846;//convertir en degres
+            float angle2 = angle;
+            angle = std::min(maxAngle, std::max(minAngle, angle));
+            oRectangle1.setRotation(angle);
+
+            if (angle2==angle)
+            {
+                oRectangle1.setRotation(angle);
+            }
         */
 
 

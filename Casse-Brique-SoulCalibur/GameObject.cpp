@@ -36,3 +36,8 @@ void GameObject::move(float time)
 
 	shape.setPosition(sf::Vector2f(xPosition, yPosition));
 }
+
+void GameObject::setRotation(float angle) 
+{
+	shape.setRotation(angle);
+}
