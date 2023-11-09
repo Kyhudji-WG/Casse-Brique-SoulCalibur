@@ -19,12 +19,11 @@ int main(int argc, char** argv)
 
     GameObject oBall2(300.f, 200.f, 10.f);
 
-    //Création d'un rectangle 
-    sf::RectangleShape oRectangle(sf::Vector2f(100.f, 20.f));
-    //la position 
-    oRectangle.setPosition(100.f, 100.f);
-    //Et la couleur 
-    oRectangle.setFillColor(sf::Color::Red);
+    GameObject oRect(100.f, 100.f, 100.f, 20.f);
+    GameObject oRect2(500.f, 100.f, 100.f, 20.f);
+
+    GameObject oRect3(100.f, 600.f, 150.f, 60.f);
+    GameObject oRect4(500.f, 600.f, 100.f, 20.f);
 
 
     // Création d'un canon
@@ -38,45 +37,47 @@ int main(int argc, char** argv)
 
     sf::Clock oClock;
     float deltaTime = 0;
+    
     //GameLoop
     while (window.isOpen())
     {
         //EVENT
-        sf::Event oEvent;
-        while (window.pollEvent(oEvent))
+        sf::Event oEvent; 
+        while (window.pollEvent(oEvent)) 
         {
-            if (oEvent.type == sf::Event::Closed)
-                window.close();
+            if (oEvent.type == sf::Event::Closed) 
+                window.close(); 
         }
 
         //UPDATE
-        oRectangle.getGlobalBounds();
 
-        oBall.move(deltaTime);
+        oBall.moveBall(deltaTime);
 
+        oRect.moveRect(deltaTime);
 
-        if (oBall.isColliderect(oRectangle.getGlobalBounds()))
+        oRect3.moveRect(deltaTime); 
+
+        sf::FloatRect ballRect;
+        ballRect = oBall.getBallRect();
+
+ 
+
+        if (oRect.OnCollisionEnter(oRect.getRectangleRect(), oRect2.getRectangleRect()))
         {
-            std::cout << "colision" << std::endl;
-            oBall.setRotation(45);
+            std::cout << "collision" << std::endl;
         }
-
-        if (oBall.isOutScreen(800))
-        {
-            std::cout << "sortie d'écran" << std::endl;
-            
-        }
-
         
         //DRAW
         window.clear();
 
-        oBall.draw(window);
-        oBall2.draw(window);
+        oBall.drawCircle(window);
+        oBall2.drawCircle(window);
+        oRect.drawRect(window);
+        oRect2.drawRect(window);
+
+        oRect3.drawRect(window);
+        oRect4.drawRect(window);
         
-        
-        window.draw(oRectangle);
-        //oWindow.draw(aRectangle);
 
         window.display();
 

@@ -11,31 +11,45 @@ private:
 	float width;
 	float height;
 	float radius;
-	int xDirection;
-	int yDirection;
+	sf::Vector2f direction;
 
-	sf::CircleShape shape; 
+	sf::CircleShape cShape; 
+	sf::RectangleShape rShape;
 
 public:
 
-	GameObject(float x, float y, float radius); //constructeur
+	GameObject(float x, float y, float radius); //constructeur CircleShape
+
+	GameObject(float x, float y, float width, float height); //constructeur RectangleShape
 
 	~GameObject(); //destructeur
 
-	sf::CircleShape getShape();
+	sf::CircleShape getCShape();
 
-	void draw(sf::RenderWindow& window);
+	sf::RectangleShape getRShape();
+
+	void drawCircle(sf::RenderWindow& window);
+
+	void drawRect(sf::RenderWindow& window);
 
 	void setDirection(sf::Vector2f const& direction);
 
-	void getDirection();
+	sf::Vector2f getDirection();
 
-	void move(float time);
+	void moveBall(float time);
+
+	void moveRect(float time);
 
 	void setRotation(float angle);
 
-	bool isColliderect(sf::FloatRect col2);
+	sf::FloatRect getBallRect();
+
+	sf::FloatRect getRectangleRect();
+
+	bool OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
 
 	bool isOutScreen(int width_screen);
+
+	void rebond(GameObject shape_ball);
 };
 
