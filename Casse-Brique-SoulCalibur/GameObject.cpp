@@ -112,24 +112,34 @@ sf::FloatRect GameObject::getRectangleRect()
 
 bool GameObject::OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2) //compare la collision entre 2 objets
 {
-	if ((shapeRect1.left > shapeRect2.left) && (shapeRect1.left < (shapeRect2.left + shapeRect2.width)) ) //test xmin1 entre xmin2 et xmax2
+	sf::FloatRect shapeRectMin = shapeRect2;
+	sf::FloatRect shapeRectMax = shapeRect1;
+	bool isX = false;
+	bool isY = false;
+
+	if (shapeRect1.width * shapeRect1.height < shapeRect2.width * shapeRect2.height) //on cherche le rectangle le plus petit
 	{
-		std::cout << "1" << std::endl;
-		return true;
+		shapeRectMin = shapeRect1;
+		shapeRectMax = shapeRect2;
 	}
-	else if (((shapeRect1.left + shapeRect1.width) > shapeRect2.left) && ((shapeRect1.left + shapeRect1.width) < (shapeRect2.left + shapeRect2.width))) //test xmax1 entre xmin2 et xmax2
+	if ((shapeRectMin.left >= shapeRectMax.left) && (shapeRectMin.left <= (shapeRectMax.left + shapeRectMax.width)) ) //test xmin1 entre xmin2 et xmax2
 	{
-		std::cout << "2" << std::endl;
-		return true;
+		isX= true;
 	}
-	else if ((shapeRect1.top > shapeRect2.top) && (shapeRect1.top < (shapeRect2.top + shapeRect2.width))) //test ymin1 entre ymin2 et ymax2
+	if (((shapeRectMin.left + shapeRectMin.width) >= shapeRectMax.left) && ((shapeRectMin.left + shapeRectMin.width) <= (shapeRectMax.left + shapeRectMax.width))) //test xmax1 entre xmin2 et xmax2
 	{
-		std::cout << "3" << std::endl;
-		return true;
+		isX = true;
 	}
-	else if (((shapeRect1.top + shapeRect1.width) > shapeRect2.top) && ((shapeRect1.top + shapeRect1.width) < (shapeRect2.top + shapeRect2.width))) //test ymax1 entre ymin2 et ymax2
+	if ((shapeRectMin.top >= shapeRectMax.top) && (shapeRectMin.top <= (shapeRectMax.top + shapeRectMax.height))) //test ymin1 entre ymin2 et ymax2
 	{
-		std::cout << "4" << std::endl;
+		isY = true;
+	}
+	if (((shapeRectMin.top + shapeRectMin.height) >= shapeRectMax.top) && ((shapeRectMin.top + shapeRectMin.height) <= (shapeRectMax.top + shapeRectMax.height))) //test ymax1 entre ymin2 et ymax2
+	{
+		isY = true;
+	}
+	if (isX && isY)
+	{
 		return true;
 	}
 	else
@@ -138,11 +148,10 @@ bool GameObject::OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeR
 	}
 }
 
-bool GameObject::isOutScreen(int width_screen)
+bool GameObject::isOutScreen(sf::FloatRect shapeRect1, int width_screen)
 {
-	sf::FloatRect col = cShape.getGlobalBounds();
 
-	if (col.left < 0 || (col.left + col.width) >= width_screen || col.top < 0)
+	if (shapeRect1.left < 0 || (shapeRect1.left + shapeRect1.width) >= width_screen || shapeRect1.top < 0)
 	{
 		return true;
 	}
@@ -155,5 +164,6 @@ bool GameObject::isOutScreen(int width_screen)
 void GameObject::rebond(GameObject shape_ball)
 {
 	sf::Vector2f dir(shape_ball.getDirection()); 
+	sf::Vector2f N();//Xposition balle - Xposition barre, Yposition balle - Yposition barre )
 
 }

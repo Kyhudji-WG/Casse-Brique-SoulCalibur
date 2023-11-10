@@ -48,7 +48,7 @@ public:
 
 	bool OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
 
-	bool isOutScreen(int width_screen);
+	bool isOutScreen(sf::FloatRect shapeRect1, int width_screen);
 
 	void rebond(GameObject shape_ball);
 };
