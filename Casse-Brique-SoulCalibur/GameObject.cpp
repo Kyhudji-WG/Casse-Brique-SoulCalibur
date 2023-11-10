@@ -35,6 +35,8 @@ GameObject::~GameObject()//destructeur
 	
 }
 
+/* inutile (pourl'instant ?) 
+
 sf::CircleShape GameObject::getCShape()
 {
 	return cShape;
@@ -45,6 +47,7 @@ sf::RectangleShape GameObject::getRShape()
 	return rShape;
 }
 
+*/
 void GameObject::drawCircle(sf::RenderWindow& window) 
 {
 	window.draw(cShape);
@@ -84,7 +87,7 @@ void GameObject::moveRect(float time)
 
 void GameObject::setRotation(float angle)
 {
-	cShape.rotate(angle);
+	rShape.rotate(angle);
 }
 
 
@@ -164,6 +167,6 @@ bool GameObject::isOutScreen(sf::FloatRect shapeRect1, int width_screen)
 void GameObject::rebond(GameObject shape_ball)
 {
 	sf::Vector2f dir(shape_ball.getDirection()); 
-	sf::Vector2f N();//Xposition balle - Xposition barre, Yposition balle - Yposition barre )
+	sf::Vector2f N();//Xposition balle - Xposition barre, Yposition balle - Yposition barre ) vecteur normal à normer
 
 }

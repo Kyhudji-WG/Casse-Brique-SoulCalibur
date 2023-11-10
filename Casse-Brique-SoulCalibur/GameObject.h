@@ -24,9 +24,9 @@ public:
 
 	~GameObject(); //destructeur
 
-	sf::CircleShape getCShape();
+	//sf::CircleShape getCShape(); inutile pour l'instant
 
-	sf::RectangleShape getRShape();
+	//sf::RectangleShape getRShape(); inutile pour l'instant
 
 	void drawCircle(sf::RenderWindow& window);
 

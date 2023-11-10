@@ -18,23 +18,13 @@ int main(int argc, char** argv)
     //creation d'une balle de jeu
     GameObject oBall(150.f, 200.f, 10.f);
 
-    GameObject oRect5(350.f, 200.f, 100.f,20.f);
-
     GameObject oRect(100.f, 100.f, 100.f, 20.f);
     GameObject oRect2(500.f, 100.f, 100.f, 20.f);
 
-    GameObject oRect3(150.f, 250.f, 150.f, 200.f);
-    GameObject oRect4(500.f, 600.f, 100.f, 20.f);
 
+    //creation du canon
     GameObject oCannon(400.f, 500.f, 100.f, 20.f);
-
-
-    // Création d'un canon
-    //sf::RectangleShape aRectangle(sf::Vector2f(20.f, 100.f));
-    //la position
-    //aRectangle.setPosition(100.f, 100.f);
-    // et la couleur
-    //aRectangle.setFillColor(sf::Color::Red);
+    oCannon.setRotation(90);
 
 
 
@@ -54,30 +44,19 @@ int main(int argc, char** argv)
 
         //UPDATE
 
-        //oBall.moveBall(deltaTime);
+        oBall.moveBall(deltaTime);
 
-        //oRect.moveRect(deltaTime);
-        oRect3.moveRect(deltaTime);
-
+        oRect.moveRect(deltaTime);
 
         
-        if (oRect3.OnCollisionEnter(oRect3.getRectangleRect(), oRect5.getRectangleRect()))
+        if (oRect.OnCollisionEnter(oRect.getRectangleRect(), oRect2.getRectangleRect()))
         {
             std::cout << "collision1" << std::endl;
         }
         
-        if (oBall.OnCollisionEnter(oBall.getBallRect(), oRect5.getRectangleRect()))
-        {
-            std::cout << "collision2" << std::endl;
-        }
         if (oBall.isOutScreen(oBall.getBallRect(), 800))
         {
             std::cout << "sortie ecran1" << std::endl;
-        }
-        
-        if (oRect.isOutScreen(oRect.getRectangleRect(), 800))
-        {
-            std::cout << "sortie ecran2" << std::endl;
         }
         
         //DRAW
@@ -86,11 +65,8 @@ int main(int argc, char** argv)
         oBall.drawCircle(window);
         oRect.drawRect(window); 
         oRect2.drawRect(window); 
-        oRect5.drawRect(window); 
-
-        oRect3.drawRect(window);
-        oRect4.drawRect(window);
         
+        oCannon.drawRect(window);
 
         window.display();
 
