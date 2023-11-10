@@ -39,7 +39,8 @@ int main(int argc, char** argv)
     // et la couleur
     //aRectangle.setFillColor(sf::Color::Red);
 
-
+    float minAngle = -75.f;
+    float maxAngle = 75.f;
 
     sf::Clock oClock;
     float deltaTime = 0;
@@ -79,20 +80,23 @@ int main(int argc, char** argv)
 
 
         /*
-           sf::Vector2i globalPosition = sf::Mouse::getPosition();//je recupere la position du sprite
+           sf::Vector2i globalPosition = sf::Mouse::getPosition(); // je récupère la position de la souris
 
             oRectangle1.setOrigin(10.f, 30.f);
-            float angle = atan2(globalPosition.y - oRectangle1.getPosition().y, globalPosition.x - oRectangle1.getPosition().x);//calcule de l'angle
-            angle = angle * 180 / 3.14159265358979323846;//convertir en degres
-            float angle2 = angle;
-            angle = std::min(maxAngle, std::max(minAngle, angle));
+            float angle = atan2(globalPosition.y - oRectangle1.getPosition().y, globalPosition.x - oRectangle1.getPosition().x); // calcul de l'angle
+            angle = angle * 180 / 3.14159265358979323846; // convertir en degrés
+            angle = std::min(maxAngle, std::max(minAngle, angle)); // restreindre l'angle
             oRectangle1.setRotation(angle);
+            */
 
-            if (angle2==angle)
-            {
-                oRectangle1.setRotation(angle);
-            }
-        */
+        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+
+        // Calculer l'angle entre la position de la souris et la position de l'objet
+        float angle = std::atan2(mousePosition.y - oRectangle1.getPosition().y, mousePosition.x - oRectangle1.getPosition().x);
+        angle = angle * 180 / 3.14159265358979323846; // Convertir en degrés
+        angle = std::min(maxAngle, std::max(minAngle, angle)); // restreindre l'angle
+        // Appliquer l'angle comme rotation à l'objet
+        oRectangle1.setRotation(angle);
 
 
 

@@ -13,7 +13,8 @@ private:
 	float radius;
 	int xDirection;
 	int yDirection;
-
+	float minAngle;
+	float maxAngle;
 
 	sf::CircleShape shape;
 

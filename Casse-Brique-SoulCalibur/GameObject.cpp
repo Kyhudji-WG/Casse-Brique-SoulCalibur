@@ -40,4 +40,5 @@ void GameObject::move(float time)
 void GameObject::setRotation(float angle) 
 {
 	shape.setRotation(angle);
+
 }
