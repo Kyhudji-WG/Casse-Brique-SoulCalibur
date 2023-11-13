@@ -20,7 +20,7 @@ public:
 
 	GameObject(float x, float y, float radius); //constructeur CircleShape
 
-	GameObject(float x, float y, float width, float height); //constructeur RectangleShape
+	GameObject(float x, float y, float width, float height, sf::Color couleur); //constructeur RectangleShape
 
 	~GameObject(); //destructeur
 
@@ -35,6 +35,12 @@ public:
 	void setDirection(sf::Vector2f const& direction);
 
 	sf::Vector2f getDirection();
+
+	void setRectPosition(float fX, float fY);
+
+	void setBallPosition(float fX, float fY);
+
+	sf::Vector2f getPosition();
 
 	void moveBall(float time);
 

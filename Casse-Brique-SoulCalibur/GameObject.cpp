@@ -16,7 +16,7 @@ GameObject::GameObject(float x, float y, float radius) //constructeur CircleShap
 	cShape.setFillColor(sf::Color::Green);
 }
 
-GameObject::GameObject(float x, float y, float width, float height) //constructeur RectangleShape
+GameObject::GameObject(float x, float y, float width, float height, sf::Color couleur) //constructeur RectangleShape
 {
 	this->xPosition = x;
 	this->yPosition = y;
@@ -25,9 +25,10 @@ GameObject::GameObject(float x, float y, float width, float height) //constructe
 	direction.x = 1;
 	direction.y = 0;
 
+	rShape.setOrigin( 0.5 * width, 0.5 * height);
 	rShape.setPosition(sf::Vector2f(xPosition, yPosition));
 	rShape.setSize(sf::Vector2f(width, height));
-	rShape.setFillColor(sf::Color::Red);
+	rShape.setFillColor(couleur);
 }
 
 GameObject::~GameObject()//destructeur
@@ -35,7 +36,7 @@ GameObject::~GameObject()//destructeur
 	
 }
 
-/* inutile (pourl'instant ?) 
+/* inutile (pour l'instant ) 
 
 sf::CircleShape GameObject::getCShape()
 {
@@ -69,8 +70,31 @@ sf::Vector2f GameObject::getDirection()
 	return direction;
 }
 
+
+void GameObject::setRectPosition(float fX, float fY)
+{
+	xPosition = fX;
+	yPosition = fY;
+}
+
+void GameObject::setBallPosition(float fX, float fY)
+{
+	xPosition = fX;
+	yPosition = fY;
+}
+
+sf::Vector2f GameObject::getPosition()
+{
+	sf::Vector2f positions;
+	positions.x = xPosition;
+	positions.y = yPosition;
+
+	return positions;
+}
+
 void GameObject::moveBall(float time)
 {
+	cShape.getPosition();
 	xPosition += direction.x * time * 100.f;
 	yPosition += direction.y * time * 100.f;
 
@@ -87,7 +111,7 @@ void GameObject::moveRect(float time)
 
 void GameObject::setRotation(float angle)
 {
-	rShape.rotate(angle);
+	rShape.setRotation(angle);
 }
 
 
