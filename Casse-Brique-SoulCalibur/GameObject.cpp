@@ -25,7 +25,7 @@ GameObject::GameObject(float x, float y, float width, float height) //constructe
 	this->height = height;
 	direction.x = 1;
 	direction.y = 0;
-
+	rShape.setOrigin(0.5 * width, 0.5 * height);
 	rShape.setPosition(sf::Vector2f(xPosition, yPosition));
 	rShape.setSize(sf::Vector2f(width, height));
 	rShape.setFillColor(sf::Color::Red);
