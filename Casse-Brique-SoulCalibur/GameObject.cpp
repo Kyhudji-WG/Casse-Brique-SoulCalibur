@@ -1,22 +1,34 @@
+
 #include "GameObject.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 
-GameObject::GameObject(float x, float y, float radius)
+GameObject::GameObject(float x, float y, float radius) //constructeur CircleShape
 {
 	this->xPosition = x;
 	this->yPosition = y;
-	//weight = weight;
-	//height = height;
 	this->radius = radius;
-	xDirection = -1;
-	yDirection = -1;
+	direction.x = 1;
+	direction.y = 0;
 
+	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
+	cShape.setRadius(radius);
+	cShape.setFillColor(sf::Color::Green);
+}
 
-	shape.setPosition(sf::Vector2f(xPosition, yPosition));
-	shape.setRadius(radius);
-	shape.setFillColor(sf::Color::Green);
+GameObject::GameObject(float x, float y, float width, float height) //constructeur RectangleShape
+{
+	this->xPosition = x;
+	this->yPosition = y;
+	this->width = width;
+	this->height = height;
+	direction.x = 1;
+	direction.y = 0;
 
+	rShape.setPosition(sf::Vector2f(xPosition, yPosition));
+	rShape.setSize(sf::Vector2f(width, height));
+	rShape.setFillColor(sf::Color::Red);
 }
 
 GameObject::~GameObject()//destructeur
@@ -24,21 +36,146 @@ GameObject::~GameObject()//destructeur
 
 }
 
-void GameObject::draw(sf::RenderWindow& window)
+/* inutile (pourl'instant ?)
+
+sf::CircleShape GameObject::getCShape()
 {
-	window.draw(shape);
+	return cShape;
 }
 
-void GameObject::move(float time)
+sf::RectangleShape GameObject::getRShape()
 {
-	xPosition += xDirection * time * 100.f;
-	yPosition += yDirection * time * 100.f;
-
-	shape.setPosition(sf::Vector2f(xPosition, yPosition));
+	return rShape;
 }
 
-void GameObject::setRotation(float angle) 
+*/
+void GameObject::drawCircle(sf::RenderWindow& window)
 {
-	shape.setRotation(angle);
+	window.draw(cShape);
+}
+
+void GameObject::drawRect(sf::RenderWindow& window)
+{
+	window.draw(rShape);
+}
+
+void GameObject::setDirection(sf::Vector2f const& direction)
+{
+	xPosition = direction.x;
+	yPosition = direction.y;
+}
+
+sf::Vector2f GameObject::getDirection()
+{
+	return direction;
+}
+sf::Vector2f GameObject::getPosition()
+{
+	sf::Vector2f position;
+	position.x = xPosition;
+	position.y = yPosition;
+
+	return position;
+}
+
+void GameObject::moveBall(float time)
+{
+	xPosition += direction.x * time * 100.f;
+	yPosition += direction.y * time * 100.f;
+
+	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
+}
+
+void GameObject::moveRect(float time)
+{
+	xPosition += direction.x * time * 100.f;
+	yPosition += direction.y * time * 100.f;
+
+	rShape.setPosition(sf::Vector2f(xPosition, yPosition));
+}
+
+void GameObject::setRotation(float angle)
+{
+	rShape.setRotation(angle);
+}
+
+
+sf::FloatRect GameObject::getBallRect()
+{
+	sf::FloatRect shapeRect;
+
+	shapeRect.left = cShape.getPosition().x;
+	shapeRect.top = cShape.getPosition().y;
+
+	return shapeRect;
+}
+
+sf::FloatRect GameObject::getRectangleRect()
+{
+	sf::FloatRect shapeRect;
+
+	shapeRect.left = rShape.getPosition().x;
+	shapeRect.top = rShape.getPosition().y;
+	shapeRect.width = width;
+	shapeRect.height = height;
+
+	return shapeRect;
+}
+
+bool GameObject::OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2) //compare la collision entre 2 objets
+{
+	sf::FloatRect shapeRectMin = shapeRect2;
+	sf::FloatRect shapeRectMax = shapeRect1;
+	bool isX = false;
+	bool isY = false;
+
+	if (shapeRect1.width * shapeRect1.height < shapeRect2.width * shapeRect2.height) //on cherche le rectangle le plus petit
+	{
+		shapeRectMin = shapeRect1;
+		shapeRectMax = shapeRect2;
+	}
+	if ((shapeRectMin.left >= shapeRectMax.left) && (shapeRectMin.left <= (shapeRectMax.left + shapeRectMax.width))) //test xmin1 entre xmin2 et xmax2
+	{
+		isX = true;
+	}
+	if (((shapeRectMin.left + shapeRectMin.width) >= shapeRectMax.left) && ((shapeRectMin.left + shapeRectMin.width) <= (shapeRectMax.left + shapeRectMax.width))) //test xmax1 entre xmin2 et xmax2
+	{
+		isX = true;
+	}
+	if ((shapeRectMin.top >= shapeRectMax.top) && (shapeRectMin.top <= (shapeRectMax.top + shapeRectMax.height))) //test ymin1 entre ymin2 et ymax2
+	{
+		isY = true;
+	}
+	if (((shapeRectMin.top + shapeRectMin.height) >= shapeRectMax.top) && ((shapeRectMin.top + shapeRectMin.height) <= (shapeRectMax.top + shapeRectMax.height))) //test ymax1 entre ymin2 et ymax2
+	{
+		isY = true;
+	}
+	if (isX && isY)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool GameObject::isOutScreen(sf::FloatRect shapeRect1, int width_screen)
+{
+
+	if (shapeRect1.left < 0 || (shapeRect1.left + shapeRect1.width) >= width_screen || shapeRect1.top < 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void GameObject::rebond(GameObject shape_ball)
+{
+	sf::Vector2f dir(shape_ball.getDirection());
+	sf::Vector2f N();//Xposition balle - Xposition barre, Yposition balle - Yposition barre ) vecteur normal à normer
 
 }
