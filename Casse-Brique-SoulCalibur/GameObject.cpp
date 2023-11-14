@@ -1,19 +1,22 @@
 #include "GameObject.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <math.h>
+#include <cmath>
 
 
-GameObject::GameObject(float x, float y, float radius) //constructeur CircleShape
+GameObject::GameObject(float x, float y, float radius, sf::Color couleur) //constructeur CircleShape
 {
 	this->xPosition = x;
 	this->yPosition = y;
 	this->radius = radius;
-	direction.x = 1;
-	direction.y = 0;
 
+	cShape.setOrigin(0.5 * radius, 0.5 * radius);
 	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
 	cShape.setRadius(radius);
-	cShape.setFillColor(sf::Color::Green);
+	cShape.setFillColor(couleur);
+	direction.x = 1;
+	direction.y = 0;
 }
 
 GameObject::GameObject(float x, float y, float width, float height, sf::Color couleur) //constructeur RectangleShape
@@ -22,8 +25,6 @@ GameObject::GameObject(float x, float y, float width, float height, sf::Color co
 	this->yPosition = y;
 	this->width = width;
 	this->height = height;
-	direction.x = 1;
-	direction.y = 0;
 
 	rShape.setOrigin( 0.5 * width, 0.5 * height);
 	rShape.setPosition(sf::Vector2f(xPosition, yPosition));
@@ -36,19 +37,11 @@ GameObject::~GameObject()//destructeur
 	
 }
 
-/* inutile (pour l'instant ) 
 
-sf::CircleShape GameObject::getCShape()
+const sf::Vector2f GameObject::getOrigin()
 {
-	return cShape;
+	return cShape.getOrigin();
 }
-
-sf::RectangleShape GameObject::getRShape()
-{
-	return rShape;
-}
-
-*/
 void GameObject::drawCircle(sf::RenderWindow& window) 
 {
 	window.draw(cShape);
@@ -59,10 +52,18 @@ void GameObject::drawRect(sf::RenderWindow& window)
 	window.draw(rShape);
 }
 
-void GameObject::setDirection(sf::Vector2f const& direction)
+void GameObject::setDirection(float y, float x)
 {
-	xPosition = direction.x;
-	yPosition = direction.y;
+	direction.x = x;
+
+	direction.y = y;
+
+
+	float norme = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+
+	direction.x = direction.x / norme; //direction X normée
+	direction.y = -direction.y / norme; //direction Y normée
+	//vecteur direction : creer 2 points => position cannon et position ball
 }
 
 sf::Vector2f GameObject::getDirection()
@@ -111,6 +112,8 @@ void GameObject::moveRect(float time)
 
 void GameObject::setRotation(float angle)
 {
+
+
 	rShape.setRotation(angle);
 }
 

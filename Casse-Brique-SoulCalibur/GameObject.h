@@ -18,11 +18,13 @@ private:
 
 public:
 
-	GameObject(float x, float y, float radius); //constructeur CircleShape
+	GameObject(float x, float y, float radius, sf::Color couleur); //constructeur CircleShape
 
 	GameObject(float x, float y, float width, float height, sf::Color couleur); //constructeur RectangleShape
 
 	~GameObject(); //destructeur
+
+	const sf::Vector2f getOrigin();
 
 	//sf::CircleShape getCShape(); inutile pour l'instant
 
@@ -32,7 +34,7 @@ public:
 
 	void drawRect(sf::RenderWindow& window);
 
-	void setDirection(sf::Vector2f const& direction);
+	void setDirection(float y, float x);
 
 	sf::Vector2f getDirection();
 
