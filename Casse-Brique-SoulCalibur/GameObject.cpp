@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-GameObject::GameObject(float x, float y, float radius) //constructeur CircleShape
+GameObject::GameObject(float x, float y, float radius, sf::Color couleur) //constructeur CircleShape
 {
 	this->xPosition = x;
 	this->yPosition = y;
@@ -14,7 +14,8 @@ GameObject::GameObject(float x, float y, float radius) //constructeur CircleShap
 
 	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
 	cShape.setRadius(radius);
-	cShape.setFillColor(sf::Color::Green);
+	cShape.setFillColor(couleur);
+
 }
 
 GameObject::GameObject(float x, float y, float width, float height) //constructeur RectangleShape
@@ -82,6 +83,18 @@ void GameObject::moveBall(float time)
 {
 	xPosition += direction.x * time * 100.f;
 	yPosition += direction.y * time * 100.f;
+
+	// Si la balle atteint le bord gauche ou droit de la fenêtre, inversez la direction horizontale
+		if (xPosition < radius || xPosition > 800.f - radius)
+	{
+		direction.x = -direction.x;
+	}
+
+	// Si la balle atteint le bord supérieur de la fenêtre, inversez la direction verticale
+		if (yPosition < radius)
+	{
+		direction.y = -direction.y;
+	}
 
 	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
 }
@@ -178,4 +191,9 @@ void GameObject::rebond(GameObject shape_ball)
 	sf::Vector2f dir(shape_ball.getDirection());
 	sf::Vector2f N();//Xposition balle - Xposition barre, Yposition balle - Yposition barre ) vecteur normal à normer
 
+}
+
+float GameObject::getRadius() const
+{
+	return radius;
 }

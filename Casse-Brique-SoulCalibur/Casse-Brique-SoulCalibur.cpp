@@ -8,7 +8,11 @@ int main(int argc, char** argv)
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
 
     // Création d'une balle de jeu
-    GameObject oBall(150.f, 200.f, 10.f);
+    GameObject oBall(150.f, 400.f, 10.f, sf::Color::Green);
+
+
+    //liste balles 
+    std::vector <GameObject> oBalls;
 
     // Création de rectangles
     GameObject oBrick(100.f, 100.f, 70.f, 20.f);
@@ -44,10 +48,43 @@ int main(int argc, char** argv)
         {
             if (oEvent.type == sf::Event::Closed)
                 window.close();
+            if (oEvent.type == sf::Event::MouseButtonReleased) {
+                if (oEvent.mouseButton.button == sf::Mouse::Left)
+                {
+                    //GameObject oBall2(oCannon.getPosition().x, oCannon.getPosition().y, 10.f);
+                    GameObject oBall2((oCannon.getPosition().x - 20.f), (oCannon.getPosition().y - 50.f), 10.f, sf::Color::Green);
+                    oBalls.push_back(oBall2);
+                }
+            }
         }
 
         // UPDATE
-        //oBall.moveBall(deltaTime);
+
+        oBall.moveBall(deltaTime);
+        for (int i = 0; i < oBalls.size(); i++)
+        {
+            oBalls[i].moveBall(deltaTime);
+
+            // Logique de rebondissement pour chaque balle
+            float x = oBalls[i].getPosition().x;
+            float y = oBalls[i].getPosition().y;
+            float radius = oBalls[i].getRadius();
+
+            // Si la balle atteint le bord gauche ou droit de la fenêtre, inversez la direction horizontale
+            if (x < radius || x > 800.f - radius)
+            {
+                oBalls[i].setDirection(sf::Vector2f(-oBalls[i].getDirection().x, oBalls[i].getDirection().y));
+            }
+
+            // Si la balle atteint le bord supérieur de la fenêtre, inversez la direction verticale
+            if (y < radius)
+            {
+                oBalls[i].setDirection(sf::Vector2f(oBalls[i].getDirection().x, -oBalls[i].getDirection().y));
+            }
+
+        }
+
+        
 
         // Calcul de l'angle entre le canon et la position de la souris
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
@@ -63,13 +100,13 @@ int main(int argc, char** argv)
             oCannon.setRotation(angle); // Rotation du canon
         }
 
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-        {
-            oBall.moveBall(deltaTime);
-        }
-
         // DRAW
         window.clear();
+
+        for (int i = 0; i < oBalls.size(); i++)
+        {
+            oBalls[i].drawCircle(window);
+        }
 
         oBall.drawCircle(window);
         oBrick.drawRect(window);

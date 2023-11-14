@@ -16,10 +16,13 @@ private:
 	float maxAngle;
 	sf::CircleShape cShape;
 	sf::RectangleShape rShape;
+	    std::vector<GameObject> bullets;
+
+
 
 public:
 
-	GameObject(float x, float y, float radius); //constructeur CircleShape
+	GameObject(float x, float y, float radius, sf::Color couleur); //constructeur CircleShape
 
 	GameObject(float x, float y, float width, float height); //constructeur RectangleShape
 
@@ -54,4 +57,6 @@ public:
 	bool isOutScreen(sf::FloatRect shapeRect1, int width_screen);
 
 	void rebond(GameObject shape_ball);
+
+	float getRadius() const;
 };
