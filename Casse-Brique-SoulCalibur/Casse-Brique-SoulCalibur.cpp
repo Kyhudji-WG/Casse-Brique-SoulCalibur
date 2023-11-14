@@ -8,7 +8,7 @@ int main(int argc, char** argv)
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
 
     // Création d'une balle de jeu
-    GameObject oBall(150.f, 400.f, 10.f, sf::Color::Green);
+    //GameObject oBall(100.f, 400.f, 10.f, sf::Color::Green);
 
 
     //liste balles 
@@ -60,28 +60,10 @@ int main(int argc, char** argv)
 
         // UPDATE
 
-        oBall.moveBall(deltaTime);
         for (int i = 0; i < oBalls.size(); i++)
         {
             oBalls[i].moveBall(deltaTime);
-
-            // Logique de rebondissement pour chaque balle
-            float x = oBalls[i].getPosition().x;
-            float y = oBalls[i].getPosition().y;
-            float radius = oBalls[i].getRadius();
-
-            // Si la balle atteint le bord gauche ou droit de la fenêtre, inversez la direction horizontale
-            if (x < radius || x > 800.f - radius)
-            {
-                oBalls[i].setDirection(sf::Vector2f(-oBalls[i].getDirection().x, oBalls[i].getDirection().y));
-            }
-
-            // Si la balle atteint le bord supérieur de la fenêtre, inversez la direction verticale
-            if (y < radius)
-            {
-                oBalls[i].setDirection(sf::Vector2f(oBalls[i].getDirection().x, -oBalls[i].getDirection().y));
-            }
-
+            oBalls[i].rebond();
         }
 
         
@@ -108,7 +90,7 @@ int main(int argc, char** argv)
             oBalls[i].drawCircle(window);
         }
 
-        oBall.drawCircle(window);
+
         oBrick.drawRect(window);
         oBrick2.drawRect(window);
         oBrick3.drawRect(window);

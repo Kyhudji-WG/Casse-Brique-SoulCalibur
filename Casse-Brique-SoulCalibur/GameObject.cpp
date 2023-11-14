@@ -9,9 +9,10 @@ GameObject::GameObject(float x, float y, float radius, sf::Color couleur) //cons
 	this->xPosition = x;
 	this->yPosition = y;
 	this->radius = radius;
-	direction.x = 1;
-	direction.y = 0;
-
+	direction.x = 2;
+	direction.y = -1;
+	
+	cShape.setOrigin(0.5 * radius, 0.5 * radius);
 	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
 	cShape.setRadius(radius);
 	cShape.setFillColor(couleur);
@@ -62,8 +63,8 @@ void GameObject::drawRect(sf::RenderWindow& window)
 
 void GameObject::setDirection(sf::Vector2f const& direction)
 {
-	xPosition = direction.x;
-	yPosition = direction.y;
+	this->direction.x = direction.x;
+	this->direction.y = direction.y;
 }
 
 sf::Vector2f GameObject::getDirection()
@@ -84,19 +85,27 @@ void GameObject::moveBall(float time)
 	xPosition += direction.x * time * 100.f;
 	yPosition += direction.y * time * 100.f;
 
+	
+
+	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
+}
+
+void GameObject::rebond()
+{
+
 	// Si la balle atteint le bord gauche ou droit de la fenêtre, inversez la direction horizontale
-		if (xPosition < radius || xPosition > 800.f - radius)
+	if (xPosition < radius || xPosition > 800.f - radius)
 	{
 		direction.x = -direction.x;
 	}
 
 	// Si la balle atteint le bord supérieur de la fenêtre, inversez la direction verticale
-		if (yPosition < radius)
+	if (yPosition < radius)
 	{
 		direction.y = -direction.y;
 	}
 
-	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
+	
 }
 
 void GameObject::moveRect(float time)
@@ -184,13 +193,6 @@ bool GameObject::isOutScreen(sf::FloatRect shapeRect1, int width_screen)
 	{
 		return false;
 	}
-}
-
-void GameObject::rebond(GameObject shape_ball)
-{
-	sf::Vector2f dir(shape_ball.getDirection());
-	sf::Vector2f N();//Xposition balle - Xposition barre, Yposition balle - Yposition barre ) vecteur normal à normer
-
 }
 
 float GameObject::getRadius() const

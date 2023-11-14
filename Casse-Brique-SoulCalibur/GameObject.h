@@ -56,7 +56,7 @@ public:
 
 	bool isOutScreen(sf::FloatRect shapeRect1, int width_screen);
 
-	void rebond(GameObject shape_ball);
+	void rebond();
 
 	float getRadius() const;
 };
