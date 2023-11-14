@@ -19,15 +19,16 @@ int main(int argc, char** argv)
     GameObject oBrick6(250.f, 200.f, 70.f, 20.f);
     GameObject oBrick7(400.f, 200.f, 70.f, 20.f);
     GameObject oBrick8(550.f, 200.f, 70.f, 20.f);
-    GameObject oBrick13(550.f, 200.f, 70.f, 20.f);
     GameObject oBrick9(100.f, 300.f, 70.f, 20.f);
     GameObject oBrick10(250.f, 300.f, 70.f, 20.f);
     GameObject oBrick11(400.f, 300.f, 70.f, 20.f);
     GameObject oBrick12(550.f, 300.f, 70.f, 20.f);
-    GameObject oBrick14(550.f, 200.f, 70.f, 20.f);
+    GameObject oBrick13(700.f, 100.f, 70.f, 20.f);
+    GameObject oBrick14(700.f, 200.f, 70.f, 20.f);
+    GameObject oBrick15(700.f, 300.f, 70.f, 20.f);
 
     // Création du canon
-    GameObject oCannon(400.f, 499.f, 20.f, 100.f);
+    GameObject oCannon(400.f, 600.f, 20.f, 100.f);
     
 
     // Initialisation du temps
@@ -46,7 +47,7 @@ int main(int argc, char** argv)
         }
 
         // UPDATE
-        oBall.moveBall(deltaTime);
+        //oBall.moveBall(deltaTime);
 
         // Calcul de l'angle entre le canon et la position de la souris
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
@@ -56,10 +57,15 @@ int main(int argc, char** argv)
         float pastAngle = angle;
         angle = std::min(75.f, std::max(-75.f, angle));
 
-        std::cout << pastAngle << std::endl;
+        //std::cout << pastAngle << std::endl;
         if (pastAngle == angle)
         {
             oCannon.setRotation(angle); // Rotation du canon
+        }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+        {
+            oBall.moveBall(deltaTime);
         }
 
         // DRAW
@@ -78,6 +84,9 @@ int main(int argc, char** argv)
         oBrick10.drawRect(window);
         oBrick11.drawRect(window);
         oBrick12.drawRect(window);
+        oBrick13.drawRect(window);
+        oBrick14.drawRect(window);
+        oBrick15.drawRect(window);
 
         oCannon.drawRect(window);
 
