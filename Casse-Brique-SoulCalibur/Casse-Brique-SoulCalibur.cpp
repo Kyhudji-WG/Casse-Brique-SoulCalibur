@@ -7,9 +7,6 @@ int main(int argc, char** argv)
     // Création de la fenêtre
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
 
-    // Création d'une balle de jeu
-    //GameObject oBall(100.f, 400.f, 10.f, sf::Color::Green);
-
 
     //liste balles 
     std::vector <GameObject> oBalls;
