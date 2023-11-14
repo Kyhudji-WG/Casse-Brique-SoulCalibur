@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Casse-Brique-SoulCalibur.cpp" />
     <ClCompile Include="GameObject.cpp" />

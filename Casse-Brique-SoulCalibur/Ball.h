@@ -5,9 +5,7 @@ class Ball : public GameObject
 {
 private:
 
+	int speed;
 public:
 
-	Ball(); //constructeur 
-
-	~Ball(); //deconstructeur
 };

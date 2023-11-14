@@ -7,7 +7,4 @@ private :
 
 public :
 
-	Cannon(); //constructeur 
-
-	~Cannon(); //deconstructeur
 };

@@ -19,10 +19,15 @@ int main(int argc, char** argv)
     //liste de balles
     std::vector <GameObject> oBalls;
 
-    //std::vector <Brick> Bricks;
+    std::vector <Brick> oBricks;
 
-    GameObject oRect(100.f, 100.f, 100.f, 20.f, sf::Color::Red);
-    GameObject oRect2(500.f, 100.f, 100.f, 20.f, sf::Color::Red);
+    Brick oBrick(100.f, 100.f, 100.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick); 
+    Brick oBrick2(500.f, 100.f, 100.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick2); 
+    Brick oBrick3(620.f, 100.f, 100.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick3);
+
 
 
     //creation du canon
@@ -48,8 +53,7 @@ int main(int argc, char** argv)
             {
                 if (oEvent.mouseButton.button == sf::Mouse::Left)
                 {
-                    //GameObject oBall2(oCannon.getPosition().x, oCannon.getPosition().y, 10.f);
-                    GameObject oBall2((oCannon.getPosition().x -  20.f), (oCannon.getPosition().y-50.f) , 10.f, sf::Color::Green);
+                    GameObject oBall2((oCannon.getPosition().x), (oCannon.getPosition().y) , 10.f, sf::Color::Green);
                     oBall2.setDirection(oCannon.getDirection().y, oCannon.getDirection().x);
                     oBalls.push_back(oBall2);
                 }
@@ -59,21 +63,19 @@ int main(int argc, char** argv)
         //UPDATE
 
 
-        oRect.moveRect(deltaTime);
-
         for (int i = 0; i < oBalls.size(); i++)
         {
             oBalls[i].moveBall(deltaTime);
+            oBalls[i].rebond();
         }
 
+        for (int i = 0; i < oBricks.size(); i++)
+        {
+            //oBricks[i].TakeDamage();
+        }
         
 
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-
-        //std::cout << "x = "<< mousePosition.x << std::endl; 
-
-        //std::cout << "y = "<< mousePosition.y << std::endl; 
-
 
 
         float angle = atan2(mousePosition.y - oCannon.getPosition().y, mousePosition.x - oCannon.getPosition().x);
@@ -96,11 +98,15 @@ int main(int argc, char** argv)
         {
             oBalls[i].drawCircle(window);
         }
+        for (int i = 0; i < oBricks.size(); i++)
+        {
+            oBricks[i].drawRect(window);
+        }
 
-        oRect.drawRect(window); 
-        oRect2.drawRect(window); 
         
         oCannon.drawRect(window);
+
+        
 
         window.display();
 

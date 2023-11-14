@@ -112,8 +112,6 @@ void GameObject::moveRect(float time)
 
 void GameObject::setRotation(float angle)
 {
-
-
 	rShape.setRotation(angle);
 }
 
@@ -178,22 +176,19 @@ bool GameObject::OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeR
 	}
 }
 
-bool GameObject::isOutScreen(sf::FloatRect shapeRect1, int width_screen)
+
+void GameObject::rebond()
 {
 
-	if (shapeRect1.left < 0 || (shapeRect1.left + shapeRect1.width) >= width_screen || shapeRect1.top < 0)
+	// Si la balle atteint le bord gauche ou droit de la fenêtre, inversez la direction horizontale
+	if (xPosition < radius || xPosition > 800.f - radius)
 	{
-		return true;
+		direction.x = -direction.x; 
 	}
-	else
+
+	// Si la balle atteint le bord supérieur de la fenêtre, inversez la direction verticale
+	if (yPosition < radius) 
 	{
-		return false;
+		direction.y = -direction.y; 
 	}
-}
-
-void GameObject::rebond(GameObject shape_ball)
-{
-	sf::Vector2f dir(shape_ball.getDirection()); 
-	sf::Vector2f N();//Xposition balle - Xposition barre, Yposition balle - Yposition barre ) vecteur normal à normer
-
 }
