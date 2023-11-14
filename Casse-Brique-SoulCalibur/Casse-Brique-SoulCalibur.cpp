@@ -49,8 +49,12 @@ int main(int argc, char** argv)
                 if (oEvent.mouseButton.button == sf::Mouse::Left)
                 {
                     //GameObject oBall2(oCannon.getPosition().x, oCannon.getPosition().y, 10.f);
+                    //GameObject oBall2(oCannon.getPosition().x, oCannon.getPosition().y, 10.f);
                     GameObject oBall2((oCannon.getPosition().x - 20.f), (oCannon.getPosition().y - 50.f), 10.f, sf::Color::Green);
+                    oBall2.setDirection(oCannon.getDirection().y, oCannon.getDirection().x);
                     oBalls.push_back(oBall2);
+
+
                 }
             }
         }
@@ -76,6 +80,7 @@ int main(int argc, char** argv)
         //std::cout << pastAngle << std::endl;
         if (pastAngle == angle)
         {
+            oCannon.setDirection(mousePosition.y - oCannon.getPosition().y, mousePosition.x - oCannon.getPosition().x);
             oCannon.setRotation(angle); // Rotation du canon
         }
 

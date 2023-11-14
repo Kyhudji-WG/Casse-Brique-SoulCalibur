@@ -199,3 +199,17 @@ float GameObject::getRadius() const
 {
 	return radius;
 }
+
+void GameObject::setDirection(float y, float x)
+{
+	direction.x = x;
+
+	direction.y = y;
+
+
+	float norme = sqrt(pow(direction.x, 2) + pow(direction.y, 2));
+
+	direction.x = direction.x / norme; //direction X normée
+	direction.y = -direction.y / norme; //direction Y normée
+	//vecteur direction : creer 2 points => position cannon et position ball
+}

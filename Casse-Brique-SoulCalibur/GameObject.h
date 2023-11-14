@@ -59,4 +59,6 @@ public:
 	void rebond();
 
 	float getRadius() const;
+
+	void setDirection(float y, float x);
 };
