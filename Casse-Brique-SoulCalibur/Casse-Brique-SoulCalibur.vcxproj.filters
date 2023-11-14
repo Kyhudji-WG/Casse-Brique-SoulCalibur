@@ -30,7 +30,7 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Cannon.cpp">
+    <ClCompile Include="Canon.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
@@ -47,7 +47,7 @@
     <ClInclude Include="Brick.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Cannon.h">
+    <ClInclude Include="Canon.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">

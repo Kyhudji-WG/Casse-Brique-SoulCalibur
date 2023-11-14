@@ -26,10 +26,6 @@ public:
 
 	const sf::Vector2f getOrigin();
 
-	//sf::CircleShape getCShape(); inutile pour l'instant
-
-	//sf::RectangleShape getRShape(); inutile pour l'instant
-
 	void drawCircle(sf::RenderWindow& window);
 
 	void drawRect(sf::RenderWindow& window);
@@ -43,10 +39,6 @@ public:
 	void setBallPosition(float fX, float fY);
 
 	sf::Vector2f getPosition();
-
-	void moveBall(float time);
-
-	void moveRect(float time);
 
 	void setRotation(float angle);
 

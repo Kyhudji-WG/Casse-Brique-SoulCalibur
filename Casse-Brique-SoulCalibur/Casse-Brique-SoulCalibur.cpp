@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "Ball.h"
 #include "Brick.h"
+#include "Canon.h"
 #include "Window.h"
 
 
@@ -17,7 +18,7 @@ int main(int argc, char** argv)
 
 
     //liste de balles
-    std::vector <GameObject> oBalls;
+    std::vector <Ball> oBalls; 
 
     std::vector <Brick> oBricks;
 
@@ -31,7 +32,7 @@ int main(int argc, char** argv)
 
 
     //creation du canon
-    GameObject oCannon(400.f, 600.f, 20.f, 100.f, sf::Color::Blue);
+    Canon oCanon(400.f, 600.f, 20.f, 100.f, sf::Color::Blue);
 
 
     float minAngle = -75.f;
@@ -53,15 +54,14 @@ int main(int argc, char** argv)
             {
                 if (oEvent.mouseButton.button == sf::Mouse::Left)
                 {
-                    GameObject oBall2((oCannon.getPosition().x), (oCannon.getPosition().y) , 10.f, sf::Color::Green);
-                    oBall2.setDirection(oCannon.getDirection().y, oCannon.getDirection().x);
+                    Ball oBall2((oCanon.getPosition().x), (oCanon.getPosition().y) , 10.f, sf::Color::Green);
+                    oBall2.setDirection(oCanon.getDirection().y, oCanon.getDirection().x);
                     oBalls.push_back(oBall2);
                 }
             }
         }
 
         //UPDATE
-
 
         for (int i = 0; i < oBalls.size(); i++)
         {
@@ -78,7 +78,7 @@ int main(int argc, char** argv)
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 
 
-        float angle = atan2(mousePosition.y - oCannon.getPosition().y, mousePosition.x - oCannon.getPosition().x);
+        float angle = atan2(mousePosition.y - oCanon.getPosition().y, mousePosition.x - oCanon.getPosition().x);
         angle = angle * 180 / 3.14159 + 90; // Conversion en degrés
         float pastAngle = angle;
         angle = std::min(75.f, std::max(-75.f, angle));
@@ -86,8 +86,8 @@ int main(int argc, char** argv)
         //std::cout << pastAngle << std::endl;
         if (pastAngle == angle)
         {
-            oCannon.setDirection(mousePosition.y - oCannon.getPosition().y, mousePosition.x - oCannon.getPosition().x);
-            oCannon.setRotation(angle); // Rotation du canon
+            oCanon.setDirection(mousePosition.y - oCanon.getPosition().y, mousePosition.x - oCanon.getPosition().x);
+            oCanon.setRotation(angle); // Rotation du canon
         }
         
         
@@ -104,7 +104,7 @@ int main(int argc, char** argv)
         }
 
         
-        oCannon.drawRect(window);
+        oCanon.drawRect(window);
 
         
 

@@ -37,11 +37,11 @@ GameObject::~GameObject()//destructeur
 	
 }
 
-
 const sf::Vector2f GameObject::getOrigin()
 {
 	return cShape.getOrigin();
 }
+
 void GameObject::drawCircle(sf::RenderWindow& window) 
 {
 	window.draw(cShape);
@@ -91,23 +91,6 @@ sf::Vector2f GameObject::getPosition()
 	positions.y = yPosition;
 
 	return positions;
-}
-
-void GameObject::moveBall(float time)
-{
-	cShape.getPosition();
-	xPosition += direction.x * time * 100.f;
-	yPosition += direction.y * time * 100.f;
-
-	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
-}
-
-void GameObject::moveRect(float time)
-{
-	xPosition += direction.x * time * 100.f;
-	yPosition += direction.y * time * 100.f;
-
-	rShape.setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
 void GameObject::setRotation(float angle)
