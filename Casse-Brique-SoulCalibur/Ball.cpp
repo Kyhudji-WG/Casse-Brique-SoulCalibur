@@ -3,7 +3,7 @@
 
 Ball::Ball(float x, float y, float radius, sf::Color couleur) : GameObject(x, y, radius, couleur) //Constructeur 
 {
-	
+	speed = 1;
 }
 
 Ball::~Ball() //destructeur

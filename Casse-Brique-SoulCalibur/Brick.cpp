@@ -32,7 +32,4 @@ void Brick::TakeDamage()
 	{
 		std::cout << "plus de vie" << std::endl;
 	}
-	
-	
-
 }

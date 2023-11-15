@@ -30,7 +30,6 @@ int main(int argc, char** argv)
     oBricks.push_back(oBrick3);
 
 
-
     //creation du canon
     Canon oCanon(400.f, 600.f, 20.f, 100.f, sf::Color::Blue);
 
