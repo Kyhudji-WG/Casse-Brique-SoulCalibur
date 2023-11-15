@@ -11,4 +11,8 @@ public:
 	~Ball(); //destructeur
 
 	void moveBall(float time);
+
+	void rebond();
+
+	bool OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
 };

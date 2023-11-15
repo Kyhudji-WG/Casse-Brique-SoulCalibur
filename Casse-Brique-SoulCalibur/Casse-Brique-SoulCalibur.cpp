@@ -61,19 +61,23 @@ int main(int argc, char** argv)
         }
 
         //UPDATE
-
+        
         for (int i = 0; i < oBalls.size(); i++)
         {
             oBalls[i].moveBall(deltaTime);
             oBalls[i].rebond();
         }
-
+        
         for (int i = 0; i < oBricks.size(); i++)
         {
             //oBricks[i].TakeDamage();
         }
-        
-
+        /*
+        if (oBalls[0].OnCollisionEnter(oBalls[0].getBallRect(), oBricks[0].getRectangleRect()))
+        {
+            std::cout << "oui" << std::endl;
+        }
+        */
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 
 
@@ -102,11 +106,9 @@ int main(int argc, char** argv)
             oBricks[i].drawRect(window);
         }
 
-        
         oCanon.drawRect(window);
 
         
-
         window.display();
 
         deltaTime = oClock.restart().asSeconds ();

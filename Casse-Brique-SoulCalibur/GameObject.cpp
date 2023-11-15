@@ -103,7 +103,7 @@ sf::FloatRect GameObject::getBallRect()
 {
 	sf::FloatRect shapeRect;
 
-	shapeRect.left =  cShape.getPosition().x;
+	shapeRect.left = cShape.getPosition().x;
 	shapeRect.top = cShape.getPosition().y;
 
 	return shapeRect;
@@ -119,59 +119,4 @@ sf::FloatRect GameObject::getRectangleRect()
 	shapeRect.height = height;
 
 	return shapeRect;
-}
-
-bool GameObject::OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2) //compare la collision entre 2 objets
-{
-	sf::FloatRect shapeRectMin = shapeRect2;
-	sf::FloatRect shapeRectMax = shapeRect1;
-	bool isX = false;
-	bool isY = false;
-
-	if (shapeRect1.width * shapeRect1.height < shapeRect2.width * shapeRect2.height) //on cherche le rectangle le plus petit
-	{
-		shapeRectMin = shapeRect1;
-		shapeRectMax = shapeRect2;
-	}
-	if ((shapeRectMin.left >= shapeRectMax.left) && (shapeRectMin.left <= (shapeRectMax.left + shapeRectMax.width)) ) //test xmin1 entre xmin2 et xmax2
-	{
-		isX= true;
-	}
-	if (((shapeRectMin.left + shapeRectMin.width) >= shapeRectMax.left) && ((shapeRectMin.left + shapeRectMin.width) <= (shapeRectMax.left + shapeRectMax.width))) //test xmax1 entre xmin2 et xmax2
-	{
-		isX = true;
-	}
-	if ((shapeRectMin.top >= shapeRectMax.top) && (shapeRectMin.top <= (shapeRectMax.top + shapeRectMax.height))) //test ymin1 entre ymin2 et ymax2
-	{
-		isY = true;
-	}
-	if (((shapeRectMin.top + shapeRectMin.height) >= shapeRectMax.top) && ((shapeRectMin.top + shapeRectMin.height) <= (shapeRectMax.top + shapeRectMax.height))) //test ymax1 entre ymin2 et ymax2
-	{
-		isY = true;
-	}
-	if (isX && isY)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-
-void GameObject::rebond()
-{
-
-	// Si la balle atteint le bord gauche ou droit de la fenêtre, inversez la direction horizontale
-	if (xPosition < radius || xPosition > 800.f - radius)
-	{
-		direction.x = -direction.x; 
-	}
-
-	// Si la balle atteint le bord supérieur de la fenêtre, inversez la direction verticale
-	if (yPosition < radius) 
-	{
-		direction.y = -direction.y; 
-	}
 }

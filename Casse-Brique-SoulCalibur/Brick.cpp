@@ -4,7 +4,7 @@
 
 Brick::Brick(float x, float y, float width, float height, sf::Color couleur, int life): GameObject( x,  y, width, height,  couleur) //Constructeur 
 {
-	life = 3;
+	this->life = 3;
 }
 
 Brick::~Brick() //destructeur
@@ -15,21 +15,40 @@ Brick::~Brick() //destructeur
 
 void Brick::TakeDamage()
 {
-	life = life - 1;
-	if (life == 3)
+	
+	sf::Clock oClock;
+	float deltaTime = 0;
+	bool isHit = false;
+	
+	if (life == 3 && isHit == false)
 	{
-		rShape.setFillColor(sf::Color::Red);
+		life = life - 1;
+		rShape.setFillColor(sf::Color::Cyan);
+		isHit = true;
 	}
-	else if (life == 2)
+	else if (life == 2 && isHit == false)
 	{
+		life = life - 1;
 		rShape.setFillColor(sf::Color::Magenta);
+		isHit = true;
 	}
-	else if (life == 1)
+	else if (life == 1 && isHit == false)
 	{
+		life = life - 1;
 		rShape.setFillColor(sf::Color::Yellow);
+		isHit = true;
 	}
-	else if (life <= 0)
+	if (life <= 0)
 	{
-		std::cout << "plus de vie" << std::endl;
+		//std::cout << "plus de vie" << std::endl;
+		rShape.setFillColor(sf::Color::Transparent);
 	}
+	
+	if (deltaTime > 5 && isHit == true)
+	{
+		isHit = false;
+	}
+	
+
+	deltaTime = oClock.restart().asSeconds();
 }

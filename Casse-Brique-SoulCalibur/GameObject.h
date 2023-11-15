@@ -47,7 +47,5 @@ public:
 	sf::FloatRect getRectangleRect();
 
 	bool OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
-
-	void rebond();
 };
 
