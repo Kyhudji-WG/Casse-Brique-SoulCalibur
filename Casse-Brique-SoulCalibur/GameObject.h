@@ -4,7 +4,7 @@
 
 class GameObject
 {
-private:
+protected:
 
 	float xPosition;
 	float yPosition;
@@ -16,7 +16,7 @@ private:
 	float maxAngle;
 	sf::CircleShape cShape;
 	sf::RectangleShape rShape;
-	    std::vector<GameObject> bullets;
+	
 
 
 
@@ -24,7 +24,7 @@ public:
 
 	GameObject(float x, float y, float radius, sf::Color couleur); //constructeur CircleShape
 
-	GameObject(float x, float y, float width, float height); //constructeur RectangleShape
+	GameObject(float x, float y, float width, float height, sf::Color couleur); //constructeur RectangleShape
 
 	~GameObject(); //destructeur
 

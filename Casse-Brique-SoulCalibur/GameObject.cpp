@@ -19,7 +19,7 @@ GameObject::GameObject(float x, float y, float radius, sf::Color couleur) //cons
 
 }
 
-GameObject::GameObject(float x, float y, float width, float height) //constructeur RectangleShape
+GameObject::GameObject(float x, float y, float width, float height, sf::Color couleur) //constructeur RectangleShape
 {
 	this->xPosition = x;
 	this->yPosition = y;
@@ -30,7 +30,7 @@ GameObject::GameObject(float x, float y, float width, float height) //constructe
 	rShape.setOrigin(0.5 * width, 0.5 * height);
 	rShape.setPosition(sf::Vector2f(xPosition, yPosition));
 	rShape.setSize(sf::Vector2f(width, height));
-	rShape.setFillColor(sf::Color::Red);
+	rShape.setFillColor(sf::Color::Blue);
 }
 
 GameObject::~GameObject()//destructeur
@@ -213,3 +213,12 @@ void GameObject::setDirection(float y, float x)
 	direction.y = -direction.y / norme; //direction Y normée
 	//vecteur direction : creer 2 points => position cannon et position ball
 }
+/* 
+
+void GameObject::IsColliding()
+{
+
+	return 0,
+}
+
+*/

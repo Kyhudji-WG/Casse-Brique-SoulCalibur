@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
+#include "Brick.h"
 
 int main(int argc, char** argv)
 {
@@ -11,7 +12,73 @@ int main(int argc, char** argv)
     //liste balles 
     std::vector <GameObject> oBalls;
 
+    //liste Brick 
+    std::vector <GameObject> oBricks;
     // Création de rectangles
+    Brick oBrick(100.f, 100.f, 60.f, 20.f,sf::Color::Yellow, 1);
+    oBricks.push_back(oBrick);
+
+    Brick oBrick2(200.f, 100.f, 60.f, 20.f, sf::Color::Magenta, 2);
+    oBricks.push_back(oBrick2);
+
+    Brick oBrick3(300.f, 100.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick3);
+
+    Brick oBrick4(400.f, 100.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick4);
+
+    Brick oBrick5(500.f, 100.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick5);
+
+    Brick oBrick6(100.f, 150.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick6);
+
+    Brick oBrick7(200.f, 150.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick7);
+
+    Brick oBrick8(300.f, 150.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick8);
+
+    Brick oBrick9(400.f, 150.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick9);
+
+    Brick oBrick10(500.f, 150.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick10);
+
+    Brick oBrick11(100.f, 200.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick11);
+
+    Brick oBrick12(200.f, 200.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick12);
+
+    Brick oBrick13(300.f, 200.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick13);
+
+    Brick oBrick14(400.f, 200.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick14);
+
+    Brick oBrick15(500.f, 200.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick15);
+
+    Brick oBrick16(600.f, 100.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick16);
+
+    Brick oBrick17(700.f, 100.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick17);
+
+    Brick oBrick18(600.f, 150.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick18);
+
+    Brick oBrick19(700.f, 150.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick19);
+
+    Brick oBrick20(600.f, 200.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick20);
+
+    Brick oBrick21(700.f, 200.f, 60.f, 20.f, sf::Color::Red, 3);
+    oBricks.push_back(oBrick21);
+
+    /*
     GameObject oBrick(100.f, 100.f, 70.f, 20.f);
     GameObject oBrick2(250.f, 100.f, 70.f, 20.f);
     GameObject oBrick3(400.f, 100.f, 70.f, 20.f);
@@ -27,9 +94,10 @@ int main(int argc, char** argv)
     GameObject oBrick13(700.f, 100.f, 70.f, 20.f);
     GameObject oBrick14(700.f, 200.f, 70.f, 20.f);
     GameObject oBrick15(700.f, 300.f, 70.f, 20.f);
+    */
 
     // Création du canon
-    GameObject oCannon(400.f, 600.f, 20.f, 100.f);
+    GameObject oCannon(400.f, 600.f, 20.f, 100.f, sf::Color::Cyan);
     
 
     // Initialisation du temps
@@ -60,13 +128,25 @@ int main(int argc, char** argv)
 
         // UPDATE
 
+      
+
         for (int i = 0; i < oBalls.size(); i++)
         {
             oBalls[i].moveBall(deltaTime);
             oBalls[i].rebond();
         }
 
+        /*
         
+        for (int i = 0; i < oBricks.size(); ++i) 
+        {
+            if ( oBalls.IsColliding( oBricks[i]) )
+            {
+
+            }
+        }
+
+        */
 
         // Calcul de l'angle entre le canon et la position de la souris
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
@@ -91,7 +171,12 @@ int main(int argc, char** argv)
             oBalls[i].drawCircle(window);
         }
 
+        for (int i = 0; i < oBricks.size(); i++)
+        {
+            oBricks[i].drawRect(window);
+        }
 
+        /*
         oBrick.drawRect(window);
         oBrick2.drawRect(window);
         oBrick3.drawRect(window);
@@ -107,7 +192,7 @@ int main(int argc, char** argv)
         oBrick13.drawRect(window);
         oBrick14.drawRect(window);
         oBrick15.drawRect(window);
-
+        */
         oCannon.drawRect(window);
 
         window.display();
