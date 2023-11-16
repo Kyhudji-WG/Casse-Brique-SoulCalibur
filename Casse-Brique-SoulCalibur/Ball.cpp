@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Ball.h"
-#include "Brick.h"
 
 
 Ball::Ball(float x, float y, float radius, sf::Color couleur, float speed) : GameObject(x, y, radius, couleur) //Constructeur 
@@ -57,7 +56,7 @@ void Ball::rebondWithScreen()
 	}
 }
 
-void Ball::rebondWithBrick(Ball oBall, int collisionCode)
+void Ball::rebondWithObj(Ball oBall, int collisionCode)
 {
 	switch (collisionCode)
 	{

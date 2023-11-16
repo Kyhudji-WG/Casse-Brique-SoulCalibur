@@ -18,5 +18,5 @@ public:
 
 	void rebondWithScreen();
 
-	void rebondWithBrick(Ball oBall, int collisionCode);
+	void rebondWithObj(Ball oBall, int collisionCode);
 };

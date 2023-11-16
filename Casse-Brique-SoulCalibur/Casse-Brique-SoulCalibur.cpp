@@ -9,14 +9,12 @@
 #include "Canon.h"
 
 
-
-
 int main(int argc, char** argv)
 {
     //création de la fenetre
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
 
-    int balles_max = 15;
+    int balles_max = 20;
     std::cout << "tu as " << balles_max << " balles maximum, detruits tous les blocs." << std::endl;
     std::cout << "appuie sur clic gauche pour tirer avec le canon" << std::endl;
 
@@ -98,6 +96,8 @@ int main(int argc, char** argv)
     sf::Clock oClock;
     float deltaTime = 0;
     
+    sf::Clock oDelayBallSpawn;
+
     //GameLoop
     while (window.isOpen())
     {
@@ -109,13 +109,15 @@ int main(int argc, char** argv)
                 window.close(); 
             if (oEvent.type == sf::Event::MouseButtonReleased)
             {
-                if (oEvent.mouseButton.button == sf::Mouse::Left && balles_max > 0)
+                if (oEvent.mouseButton.button == sf::Mouse::Left && (balles_max > 0) && (oDelayBallSpawn.getElapsedTime().asSeconds() > 0.5f))
                 {
                     Ball oBall((oCanon.getPosition().x), (oCanon.getPosition().y) , 10.f, sf::Color::Green, 1);
                     oBall.setDirection(oCanon.getDirection().y, oCanon.getDirection().x);
                     oBalls.push_back(oBall);
                     balles_max = balles_max - 1;
                     std::cout << "Balles restantes : " << balles_max << std::endl;
+
+                    oDelayBallSpawn.restart().asSeconds();
                 }
                 else if (balles_max <= 0)
                 {
@@ -128,7 +130,6 @@ int main(int argc, char** argv)
                 }
             }
         }
-        
         // UPDATE
 
         for (int i = 0; i < oBalls.size(); i++)
@@ -136,20 +137,35 @@ int main(int argc, char** argv)
             oBalls[i].moveBall(deltaTime);
             oBalls[i].rebondWithScreen();
 
-            for (int j = 0; j < oBricks.size(); j++)
+            for (int j = 0; j < oBricks.size(); j++) //collisions et degats des bricks
             {
-                if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBricks[j].getRectangleRect(), oBricks[j].getLife()) == 1) // gauche
+                if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBricks[j].getRectangleRect()) == 1) // gauche
                 {
-                    oBalls[i].rebondWithBrick(oBalls[i], 1); 
+                    oBalls[i].rebondWithObj(oBalls[i], 1); 
                     oBricks[j].TakeDamage(); 
                 }
-                else if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBricks[j].getRectangleRect(), oBricks[j].getLife()) == 2) // haut
+                else if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBricks[j].getRectangleRect()) == 2) // haut
                 {
-                    oBalls[i].rebondWithBrick(oBalls[i], 2); 
+                    oBalls[i].rebondWithObj(oBalls[i], 2); 
                     oBricks[j].TakeDamage();
                 }
             }
+            for (int k = 0; k < oBalls.size(); k++)  //collisions entre les balles
+            {
+                if (i != k)
+                {
+                    if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBalls[k].getBallRect()) == 1) // gauche
+                    {
+                        oBalls[i].rebondWithObj(oBalls[i], 1);
+                    }
+                    else if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBalls[k].getBallRect()) == 2) // haut
+                    {
+                        oBalls[i].rebondWithObj(oBalls[i], 2);
+                    }
+                }
+            }
         }       
+
         for (int j = 0; j < oBricks.size(); j++)
         {
             if (oBricks[j].getLife() <= 0)
@@ -173,7 +189,6 @@ int main(int argc, char** argv)
             break;
         }
       
-
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window); 
 
         float angle = atan2(mousePosition.y - oCanon.getPosition().y, mousePosition.x - oCanon.getPosition().x);
@@ -181,14 +196,11 @@ int main(int argc, char** argv)
         float pastAngle = angle;
         angle = std::min(75.f, std::max(-75.f, angle));
 
-        //std::cout << pastAngle << std::endl;
         if (pastAngle == angle)
         {
             oCanon.setDirection(mousePosition.y - oCanon.getPosition().y, mousePosition.x - oCanon.getPosition().x);
             oCanon.setRotation(angle); // Rotation du canon
         }
-        
-
 
         //DRAW
         window.clear();

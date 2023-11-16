@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Brick.h"
 
@@ -15,7 +14,7 @@ Brick::~Brick() //destructeur
 
 void Brick::TakeDamage()
 {
-	sf::Clock oClock;
+	sf::Clock oDelayHit;
 	float deltaTime = 0;
 	bool isHit = false;
 	
@@ -42,7 +41,7 @@ void Brick::TakeDamage()
 		isHit = false;
 	}
 	
-	deltaTime = oClock.restart().asSeconds();
+	deltaTime = oDelayHit.restart().asSeconds();
 }
 
 int Brick::getLife()

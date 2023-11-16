@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-
 class GameObject
 {
 protected:
@@ -34,12 +33,9 @@ public:
 
 	sf::Vector2f getDirection();
 
-	void setRectPosition(float fX, float fY);
-
 	sf::Vector2f getPosition();
 
 	sf::FloatRect getRectangleRect();
 
-	int OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2, int life);
+	int OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
 };
-
