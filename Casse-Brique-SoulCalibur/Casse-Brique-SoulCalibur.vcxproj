@@ -70,6 +70,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\Antoine\source\repos\William-Gabali\Casse-Brique-SoulCalibur\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Antoine\source\repos\William-Gabali\Casse-Brique-SoulCalibur\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -130,11 +134,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Canon.cpp" />
     <ClCompile Include="Casse-Brique-SoulCalibur.cpp" />
-    <ClCompile Include="GameObjetct.cpp" />
+    <ClCompile Include="GameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObjetct.h" />
+    <ClInclude Include="Brick.h" />
+    <ClInclude Include="Canon.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Ball.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
