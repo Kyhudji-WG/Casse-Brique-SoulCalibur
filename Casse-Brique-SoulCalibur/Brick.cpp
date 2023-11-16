@@ -49,6 +49,10 @@ void Brick::TakeDamage()
 		isHit = false;
 	}
 	
-
 	deltaTime = oClock.restart().asSeconds();
+}
+
+int Brick::getLife()
+{
+	return life;
 }

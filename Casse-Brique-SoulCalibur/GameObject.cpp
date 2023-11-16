@@ -99,7 +99,7 @@ sf::FloatRect GameObject::getRectangleRect()
 }
 
 
-int GameObject::OnCollisionEnter(sf::FloatRect shapeBall, sf::FloatRect shapeBrick)
+int GameObject::OnCollisionEnter(sf::FloatRect shapeBall, sf::FloatRect shapeBrick, int life)
 {
 	bool isX = false;
 	bool isY = false;
@@ -107,66 +107,71 @@ int GameObject::OnCollisionEnter(sf::FloatRect shapeBall, sf::FloatRect shapeBri
 	float overlapX = 0.0f;
 	float overlapY = 0.0f;
 
-
-
-	// Test de collision sur l'axe X
-	if (shapeBall.left + shapeBall.width > shapeBrick.left &&
-		shapeBall.left < shapeBrick.left + shapeBrick.width)
+	if (life > 0)
 	{
-		isX = true;
-
-		// Calcul de la quantité de chevauchement sur l'axe X
-		overlapX = std::min(shapeBall.left + shapeBall.width - shapeBrick.left, shapeBrick.left + shapeBrick.width - shapeBall.left);
-	}
-
-	// Test de collision sur l'axe Y
-	if (shapeBall.top + shapeBall.height > shapeBrick.top &&
-		shapeBall.top < shapeBrick.top + shapeBrick.height)
-	{
-		isY = true;
-
-		// Calcul de la quantité de chevauchement sur l'axe Y
-		overlapY = std::min(shapeBall.top + shapeBall.height - shapeBrick.top, shapeBrick.top + shapeBrick.height - shapeBall.top);
-	}
-
-	// Détermination de la face de collision
-	if (isX && isY)
-	{
-		if (overlapX < overlapY)
+		// Test de collision sur l'axe X
+		if (shapeBall.left + shapeBall.width > shapeBrick.left &&
+			shapeBall.left < shapeBrick.left + shapeBrick.width)
 		{
-			// Collision sur l'axe X, déterminez si c'est à gauche ou à droite
-			if (shapeBall.left <= shapeBrick.left)
+			isX = true;
+
+			// Calcul de la quantité de chevauchement sur l'axe X
+			overlapX = std::min(shapeBall.left + shapeBall.width - shapeBrick.left, shapeBrick.left + shapeBrick.width - shapeBall.left);
+		}
+
+		// Test de collision sur l'axe Y
+		if (shapeBall.top + shapeBall.height > shapeBrick.top &&
+			shapeBall.top < shapeBrick.top + shapeBrick.height)
+		{
+			isY = true;
+
+			// Calcul de la quantité de chevauchement sur l'axe Y
+			overlapY = std::min(shapeBall.top + shapeBall.height - shapeBrick.top, shapeBrick.top + shapeBrick.height - shapeBall.top);
+		}
+
+		// Détermination de la face de collision
+		if (isX && isY)
+		{
+			if (overlapX < overlapY)
 			{
-				// Collision sur le côté gauche de la brique
-				std::cout << "Collision sur le côté gauche de la brique" << std::endl;
-				return 1;
+				// Collision sur l'axe X, déterminez si c'est à gauche ou à droite
+				if (shapeBall.left <= shapeBrick.left)
+				{
+					// Collision sur le côté gauche de la brique
+					std::cout << "Collision sur le côté gauche de la brique" << std::endl;
+					return 1;
+				}
+				else
+				{
+					// Collision sur le côté droit de la brique
+					std::cout << "Collision sur le côté droit de la brique" << std::endl;
+					return 1;
+				}
 			}
 			else
 			{
-				// Collision sur le côté droit de la brique
-				std::cout << "Collision sur le côté droit de la brique" << std::endl;
-				return 1;
+				// Collision sur l'axe Y, déterminez si c'est en haut ou en bas
+				if (shapeBall.top <= shapeBrick.top)
+				{
+					// Collision en haut de la brique
+					std::cout << "Collision en haut de la brique" << std::endl;
+					return 2;
+				}
+				else
+				{
+					// Collision en bas de la brique
+					std::cout << "Collision en bas de la brique" << std::endl;
+					return 2;
+				}
 			}
+
+			// Vous pouvez également renvoyer un code ou une valeur spécifique pour indiquer la face de collision
+			return true;
 		}
 		else
 		{
-			// Collision sur l'axe Y, déterminez si c'est en haut ou en bas
-			if (shapeBall.top <= shapeBrick.top)
-			{
-				// Collision en haut de la brique
-				std::cout << "Collision en haut de la brique" << std::endl;
-				return 2;
-			}
-			else
-			{
-				// Collision en bas de la brique
-				std::cout << "Collision en bas de la brique" << std::endl;
-				return 2;
-			}
+			return 0;
 		}
-
-		// Vous pouvez également renvoyer un code ou une valeur spécifique pour indiquer la face de collision
-		return true;
 	}
 	else
 	{

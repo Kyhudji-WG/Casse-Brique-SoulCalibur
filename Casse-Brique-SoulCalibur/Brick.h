@@ -11,4 +11,6 @@ public:
 	~Brick();// Destructeur
 
 	void TakeDamage();
+
+	int getLife();
 };

@@ -40,6 +40,6 @@ public:
 
 	sf::FloatRect getRectangleRect();
 
-	int OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
+	int OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2, int life);
 };
 
