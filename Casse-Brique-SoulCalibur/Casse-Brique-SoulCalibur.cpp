@@ -133,7 +133,16 @@ int main(int argc, char** argv)
                 }
             }
         }
-        
+        /*
+        for (int i = 0; i < oBricks.size(); i++) 
+        {
+            if (oBricks[i].getLife() == 0) 
+            {
+                remove(oBricks.begin(), oBricks.end(), oBricks[i]); 
+            }
+        }
+        */
+
 
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window); 
 
