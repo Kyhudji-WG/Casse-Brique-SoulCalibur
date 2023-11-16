@@ -1,11 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Ball.h"
+#include "Brick.h"
 
 
-Ball::Ball(float x, float y, float radius, sf::Color couleur) : GameObject(x, y, radius, couleur) //Constructeur 
+Ball::Ball(float x, float y, float radius, sf::Color couleur, float speed) : GameObject(x, y, radius, couleur) //Constructeur 
 {
-	speed = 1;
+	this->speed = 1;
 }
 
 Ball::~Ball() //destructeur
@@ -13,17 +14,35 @@ Ball::~Ball() //destructeur
 
 }
 
+sf::FloatRect Ball::getBallRect()
+{
+	sf::FloatRect shapeRect;
+
+	shapeRect.left = cShape.getPosition().x - cShape.getOrigin().x;
+	shapeRect.top = cShape.getPosition().y - cShape.getOrigin().y;
+	shapeRect.width = radius;
+	shapeRect.height = radius;
+
+	return shapeRect;
+}
+
+void Ball::setBallPosition(float fX, float fY)
+{
+	xPosition = fX;
+	yPosition = fY;
+}
+
 void Ball::moveBall(float time)
 {
 	cShape.getPosition();
-	xPosition += direction.x * time * 100.f;
-	yPosition += direction.y * time * 100.f;
+	xPosition += speed * direction.x * time * 100.f;
+	yPosition += speed * direction.y * time * 100.f;
 
 	cShape.setPosition(sf::Vector2f(xPosition, yPosition));
 }
 
 
-void Ball::rebond()
+void Ball::rebondWithScreen()
 {
 	// Si la balle atteint le bord gauche ou droit de la fenêtre, inversez la direction horizontale
 	if (xPosition < radius || xPosition > 800.f - radius)
@@ -38,41 +57,19 @@ void Ball::rebond()
 	}
 }
 
-bool Ball::OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2) //compare la collision entre 2 objets
+void Ball::rebondWithBrick(Ball oBall, int collisionCode)
 {
-	sf::FloatRect shapeRectMin = shapeRect1;
-	sf::FloatRect shapeRectMax = shapeRect2;
-	bool isX = false;
-	bool isY = false;
+	switch (collisionCode)
+	{
+	case 1: // Collision sur le côté gauche de la brique
+		direction.x = -direction.x;
+		break;
 
-	if (shapeRectMin.width * shapeRectMin.height > shapeRectMax.width * shapeRectMax.height) //on cherche le rectangle le plus petit
-	{
-		shapeRectMin = shapeRect2;
-		shapeRectMax = shapeRect1;
-	}
-	if ((shapeRectMin.left > shapeRectMax.left) && (shapeRectMin.left < (shapeRectMax.left + shapeRectMax.width))) //test xmin1 entre xmin2 et xmax2
-	{
-		isX = true;
-	}
-	if (((shapeRectMin.left + shapeRectMin.width) > shapeRectMax.left) && ((shapeRectMin.left + shapeRectMin.width) < (shapeRectMax.left + shapeRectMax.width))) //test xmax1 entre xmin2 et xmax2
-	{
-		isX = true;
-	}
-	if ((shapeRectMin.top > shapeRectMax.top) && (shapeRectMin.top < (shapeRectMax.top + shapeRectMax.height))) //test ymin1 entre ymin2 et ymax2
-	{
-		isY = true;
-	}
-	if (((shapeRectMin.top + shapeRectMin.height) > shapeRectMax.top) && ((shapeRectMin.top + shapeRectMin.height) < (shapeRectMax.top + shapeRectMax.height))) //test ymax1 entre ymin2 et ymax2
-	{
-		isY = true;
-	}
-	if (isX && isY)
-	{
-		std::cout << "coision";
-		return true;
-	}
-	else
-	{
-		return false;
+	case 2: // Collision en haut de la brique
+		direction.y = -direction.y;
+		break;
+
+	default:
+		break;
 	}
 }

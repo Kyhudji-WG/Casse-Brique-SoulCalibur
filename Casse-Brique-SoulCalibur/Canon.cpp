@@ -9,3 +9,8 @@ Canon::~Canon()
 {
 
 }
+
+void Canon::setRotation(float angle)
+{
+	rShape.setRotation(angle);
+}

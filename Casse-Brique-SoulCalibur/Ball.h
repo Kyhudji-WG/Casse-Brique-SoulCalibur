@@ -4,15 +4,19 @@
 class Ball : public GameObject
 {
 private:
-	int speed;
+	float speed;
 public:
 
-	Ball(float x, float y, float radius, sf::Color couleur); //constructeur
+	Ball(float x, float y, float radius, sf::Color couleur, float speed); //constructeur
 	~Ball(); //destructeur
+
+	sf::FloatRect getBallRect();
+
+	void setBallPosition(float fX, float fY);
 
 	void moveBall(float time);
 
-	void rebond();
+	void rebondWithScreen();
 
-	bool OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
+	void rebondWithBrick(Ball oBall, int collisionCode);
 };

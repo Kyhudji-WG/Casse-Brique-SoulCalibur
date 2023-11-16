@@ -7,7 +7,6 @@
 #include "Ball.h"
 #include "Brick.h"
 #include "Canon.h"
-#include "Window.h"
 
 
 
@@ -53,33 +52,37 @@ int main(int argc, char** argv)
             {
                 if (oEvent.mouseButton.button == sf::Mouse::Left)
                 {
-                    Ball oBall2((oCanon.getPosition().x), (oCanon.getPosition().y) , 10.f, sf::Color::Green);
-                    oBall2.setDirection(oCanon.getDirection().y, oCanon.getDirection().x);
-                    oBalls.push_back(oBall2);
+                    Ball oBall((oCanon.getPosition().x), (oCanon.getPosition().y) , 10.f, sf::Color::Green, 1);
+                    oBall.setDirection(oCanon.getDirection().y, oCanon.getDirection().x);
+                    oBalls.push_back(oBall);
                 }
             }
         }
 
         //UPDATE
         
+        // UPDATE
+
         for (int i = 0; i < oBalls.size(); i++)
         {
             oBalls[i].moveBall(deltaTime);
-            oBalls[i].rebond();
-        }
-        
-        for (int i = 0; i < oBricks.size(); i++)
-        {
-            //oBricks[i].TakeDamage();
-        }
-        /*
-        if (oBalls[0].OnCollisionEnter(oBalls[0].getBallRect(), oBricks[0].getRectangleRect()))
-        {
-            std::cout << "oui" << std::endl;
-        }
-        */
-        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            oBalls[i].rebondWithScreen();
 
+            for (int j = 0; j < oBricks.size(); j++)
+            {
+                if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBricks[j].getRectangleRect()) == 1) // gauche
+                {
+                    oBalls[i].rebondWithBrick(oBalls[i], 1);
+                }
+                else if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBricks[j].getRectangleRect()) == 2) // haut
+                {
+                    oBalls[i].rebondWithBrick(oBalls[i], 2);
+                }
+            }
+        }
+
+   
+        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 
         float angle = atan2(mousePosition.y - oCanon.getPosition().y, mousePosition.x - oCanon.getPosition().x);
         angle = angle * 180 / 3.14159 + 90; // Conversion en degrés
@@ -92,7 +95,6 @@ int main(int argc, char** argv)
             oCanon.setDirection(mousePosition.y - oCanon.getPosition().y, mousePosition.x - oCanon.getPosition().x);
             oCanon.setRotation(angle); // Rotation du canon
         }
-        
         
         //DRAW
         window.clear();
@@ -116,4 +118,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-

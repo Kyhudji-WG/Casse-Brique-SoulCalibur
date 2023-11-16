@@ -36,16 +36,10 @@ public:
 
 	void setRectPosition(float fX, float fY);
 
-	void setBallPosition(float fX, float fY);
-
 	sf::Vector2f getPosition();
-
-	void setRotation(float angle);
-
-	sf::FloatRect getBallRect();
 
 	sf::FloatRect getRectangleRect();
 
-	bool OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
+	int OnCollisionEnter(sf::FloatRect shapeRect1, sf::FloatRect shapeRect2);
 };
 
