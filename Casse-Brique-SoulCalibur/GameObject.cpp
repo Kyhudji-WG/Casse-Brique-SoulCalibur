@@ -138,13 +138,11 @@ int GameObject::OnCollisionEnter(sf::FloatRect shapeBall, sf::FloatRect shapeBri
 				if (shapeBall.left <= shapeBrick.left)
 				{
 					// Collision sur le côté gauche de la brique
-					std::cout << "Collision sur le côté gauche de la brique" << std::endl;
 					return 1;
 				}
 				else
 				{
 					// Collision sur le côté droit de la brique
-					std::cout << "Collision sur le côté droit de la brique" << std::endl;
 					return 1;
 				}
 			}
@@ -154,13 +152,11 @@ int GameObject::OnCollisionEnter(sf::FloatRect shapeBall, sf::FloatRect shapeBri
 				if (shapeBall.top <= shapeBrick.top)
 				{
 					// Collision en haut de la brique
-					std::cout << "Collision en haut de la brique" << std::endl;
 					return 2;
 				}
 				else
 				{
 					// Collision en bas de la brique
-					std::cout << "Collision en bas de la brique" << std::endl;
 					return 2;
 				}
 			}
@@ -178,6 +174,3 @@ int GameObject::OnCollisionEnter(sf::FloatRect shapeBall, sf::FloatRect shapeBri
 		return 0;
 	}
 }
-
-
-

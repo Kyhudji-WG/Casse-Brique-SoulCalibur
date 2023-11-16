@@ -15,7 +15,6 @@ Brick::~Brick() //destructeur
 
 void Brick::TakeDamage()
 {
-	
 	sf::Clock oClock;
 	float deltaTime = 0;
 	bool isHit = false;
@@ -35,13 +34,7 @@ void Brick::TakeDamage()
 	else if (life == 1 && isHit == false)
 	{
 		life = life - 1;
-		rShape.setFillColor(sf::Color::Yellow);
 		isHit = true;
-	}
-	if (life <= 0)
-	{
-		//std::cout << "plus de vie" << std::endl;
-		rShape.setFillColor(sf::Color::Transparent);
 	}
 	
 	if (deltaTime > 5 && isHit == true)

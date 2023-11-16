@@ -9,11 +9,16 @@
 #include "Canon.h"
 
 
+
+
 int main(int argc, char** argv)
 {
     //création de la fenetre
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML");
 
+    int balles_max = 15;
+    std::cout << "tu as " << balles_max << " balles maximum, detruits tous les blocs." << std::endl;
+    std::cout << "appuie sur clic gauche pour tirer avec le canon" << std::endl;
 
     //liste des balles
     std::vector <Ball> oBalls; 
@@ -104,11 +109,22 @@ int main(int argc, char** argv)
                 window.close(); 
             if (oEvent.type == sf::Event::MouseButtonReleased)
             {
-                if (oEvent.mouseButton.button == sf::Mouse::Left)
+                if (oEvent.mouseButton.button == sf::Mouse::Left && balles_max > 0)
                 {
                     Ball oBall((oCanon.getPosition().x), (oCanon.getPosition().y) , 10.f, sf::Color::Green, 1);
                     oBall.setDirection(oCanon.getDirection().y, oCanon.getDirection().x);
                     oBalls.push_back(oBall);
+                    balles_max = balles_max - 1;
+                    std::cout << "Balles restantes : " << balles_max << std::endl;
+                }
+                else if (balles_max <= 0)
+                {
+                    std::cout << "tu n'a plus de balles" << std::endl;
+                }
+                if (oEvent.mouseButton.button == sf::Mouse::Right)
+                {
+                    balles_max += 10;
+                    std::cout << "triche activé, 10 balles en plus" << std::endl;
                 }
             }
         }
@@ -119,6 +135,7 @@ int main(int argc, char** argv)
         {
             oBalls[i].moveBall(deltaTime);
             oBalls[i].rebondWithScreen();
+
             for (int j = 0; j < oBricks.size(); j++)
             {
                 if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBricks[j].getRectangleRect(), oBricks[j].getLife()) == 1) // gauche
@@ -129,20 +146,33 @@ int main(int argc, char** argv)
                 else if (oBalls[i].OnCollisionEnter(oBalls[i].getBallRect(), oBricks[j].getRectangleRect(), oBricks[j].getLife()) == 2) // haut
                 {
                     oBalls[i].rebondWithBrick(oBalls[i], 2); 
-                    oBricks[j].TakeDamage(); 
+                    oBricks[j].TakeDamage();
                 }
             }
-        }
-        /*
-        for (int i = 0; i < oBricks.size(); i++) 
+        }       
+        for (int j = 0; j < oBricks.size(); j++)
         {
-            if (oBricks[i].getLife() == 0) 
+            if (oBricks[j].getLife() <= 0)
             {
-                remove(oBricks.begin(), oBricks.end(), oBricks[i]); 
+                oBricks.erase(oBricks.begin() + j);
             }
         }
-        */
-
+        
+        int countBrick = 0;
+        for (int i = 0; i < oBricks.size(); i++)
+        {
+            if (oBricks[i].getLife() > 0)
+            {
+                countBrick += 1; //compte les bricks encore présente
+            }
+        }
+        if (countBrick == 0) //s'il n'y a plus de bricks => victoire
+        {
+            std::cout << "bravo, tu as gagné !";
+            sf::sleep(sf::seconds(5));
+            break;
+        }
+      
 
         sf::Vector2i mousePosition = sf::Mouse::getPosition(window); 
 
@@ -172,11 +202,11 @@ int main(int argc, char** argv)
             oBricks[i].drawRect(window);
         }
 
-        oCanon.drawRect(window);
+        oCanon.drawRect(window); 
         
         window.display();
 
-        deltaTime = oClock.restart().asSeconds ();
+        deltaTime = oClock.restart().asSeconds (); 
     }
 
     return 0;
